@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FixItNow - Tech Repair & IT Support Platform</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* CSS Reset and Base Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      :root {
+        --primary: #2563eb;
+        --primary-dark: #1d4ed8;
+        --secondary: #10b981;
+        --dark: #1e293b;
+        --light: #f8fafc;
+        --gray: #64748b;
+        --light-gray: #e2e8f0;
+      }
+
+      body {
+        background-color: var(--light);
+        color: var(--dark);
+        line-height: 1.6;
+      }
+
+      /* Container */
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+
+      /* Header Styles */
+      header {
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary);
+        text-decoration: none;
+      }
+
+      .logo span {
+        color: var(--secondary);
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+      }
+
+      nav ul li {
+        margin-left: 1.5rem;
+      }
+
+      nav ul li a {
+        text-decoration: none;
+        color: var(--dark);
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      nav ul li a:hover {
+        color: var(--primary);
+      }
+
+      .auth-buttons {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .btn {
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        font-weight: 500;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .btn-primary {
+        background-color: var(--primary);
+        color: white;
+        border: none;
+      }
+
+      .btn-primary:hover {
+        background-color: var(--primary-dark);
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        color: var(--primary);
+        border: 1px solid var(--primary);
+      }
+
+      .btn-outline:hover {
+        background-color: var(--primary);
+        color: white;
+      }
+
+      /* Hero Section */
+      .hero {
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+          url("/api/placeholder/1200/600") center/cover;
+        color: white;
+        padding: 6rem 0;
+        text-align: center;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+      }
+
+      .hero p {
+        font-size: 1.25rem;
+        max-width: 700px;
+        margin: 0 auto 2rem;
+      }
+
+      .search-bar {
+        max-width: 600px;
+        margin: 0 auto;
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .search-bar input {
+        flex: 1;
+        padding: 0.75rem 1rem;
+        border: none;
+        border-radius: 0.25rem;
+        font-size: 1rem;
+      }
+
+      /* Services Section */
+      .section {
+        padding: 5rem 0;
+      }
+
+      .section-header {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+        color: var(--dark);
+        margin-bottom: 0.5rem;
+      }
+
+      .section-subtitle {
+        color: var(--gray);
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 2rem;
+      }
+
+      .service-card {
+        background-color: white;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        text-align: center;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .service-icon {
+        font-size: 2.5rem;
+        color: var(--primary);
+        margin-bottom: 1rem;
+      }
+
+      .service-title {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .service-description {
+        color: var(--gray);
+      }
+
+      /* How It Works Section */
+      .how-it-works {
+        background-color: var(--light-gray);
+      }
+
+      .steps {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 2rem;
+      }
+
+      .step {
+        flex: 1;
+        min-width: 250px;
+        text-align: center;
+        position: relative;
+      }
+
+      .step-number {
+        background-color: var(--primary);
+        color: white;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin: 0 auto 1rem;
+      }
+
+      .step-title {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .step-description {
+        color: var(--gray);
+      }
+
+      /* Technicians Section */
+      .technicians-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 2rem;
+      }
+
+      .technician-card {
+        background-color: white;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .technician-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .technician-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .technician-info {
+        padding: 1.5rem;
+      }
+
+      .technician-name {
+        font-size: 1.25rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .technician-specialty {
+        color: var(--secondary);
+        margin-bottom: 0.5rem;
+      }
+
+      .technician-rating {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+      }
+
+      .stars {
+        color: #fbbf24;
+        margin-right: 0.5rem;
+      }
+
+      .technician-location {
+        display: flex;
+        align-items: center;
+        color: var(--gray);
+        margin-bottom: 1rem;
+      }
+
+      .technician-location i {
+        margin-right: 0.5rem;
+      }
+
+      /* Testimonials Section */
+      .testimonials {
+        background-color: var(--light-gray);
+      }
+
+      .testimonials-container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .testimonial {
+        background-color: white;
+        border-radius: 0.5rem;
+        padding: 2rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      .testimonial-text {
+        font-size: 1.1rem;
+        font-style: italic;
+        margin-bottom: 1.5rem;
+      }
+
+      .testimonial-author {
+        font-weight: bold;
+      }
+
+      .testimonial-role {
+        color: var(--gray);
+      }
+
+      /* CTA Section */
+      .cta {
+        background-color: var(--primary);
+        color: white;
+        text-align: center;
+      }
+
+      .cta-title {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      .cta-description {
+        max-width: 600px;
+        margin: 0 auto 2rem;
+      }
+
+      .cta-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .btn-light {
+        background-color: white;
+        color: var(--primary);
+      }
+
+      .btn-light:hover {
+        background-color: var(--light-gray);
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--dark);
+        color: white;
+        padding: 4rem 0 2rem;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .footer-column h3 {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+      }
+
+      .footer-links {
+        list-style: none;
+      }
+
+      .footer-links li {
+        margin-bottom: 0.5rem;
+      }
+
+      .footer-links a {
+        color: var(--light-gray);
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-links a:hover {
+        color: white;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .social-links a {
+        color: white;
+        font-size: 1.25rem;
+        transition: color 0.3s;
+      }
+
+      .social-links a:hover {
+        color: var(--secondary);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      /* Mobile Menu */
+      .mobile-menu-toggle {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: var(--dark);
+        cursor: pointer;
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 768px) {
+        .mobile-menu-toggle {
+          display: block;
+        }
+
+        nav {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background-color: white;
+          box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+          padding: 1rem;
+        }
+
+        nav.active {
+          display: block;
+        }
+
+        nav ul {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        nav ul li {
+          margin-left: 0;
+        }
+
+        .auth-buttons {
+          display: none;
+        }
+
+        .hero h1 {
+          font-size: 2rem;
+        }
+
+        .hero p {
+          font-size: 1rem;
+        }
+
+        .search-bar {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container header-container">
+        <a href="index.html" class="logo">
+          <i class="fas fa-tools"></i>&nbsp;Fix<span>It</span>Now
+        </a>
+        <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+          <i class="fas fa-bars"></i>
+        </button>
+        <nav id="main-nav">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="pages/services.html">Services</a></li>
+            <li><a href="pages/technicians.html">Technicians</a></li>
+            <li><a href="pages/about.html">About Us</a></li>
+            <li><a href="pages/booking.html">Book Now</a></li>
+          </ul>
+        </nav>
+        <div class="auth-buttons">
+          <a href="pages/login.html" class="btn btn-outline">Login</a>
+          <a href="pages/register.html" class="btn btn-primary">Sign Up</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <h1>Tech Problems? Fixed Fast</h1>
+        <p>
+          Connect with qualified IT technicians for all your technology repair
+          needs. From smartphones to networks, we've got you covered.
+        </p>
+        <div class="search-bar">
+          <input type="text" placeholder="What tech issue are you facing?" />
+          <button class="btn btn-primary">Find Help</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Our Services</h2>
+          <p class="section-subtitle">
+            We offer a wide range of tech repair and IT support services to
+            solve your technology problems.
+          </p>
+        </div>
+        <div class="services-grid">
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="fas fa-laptop"></i>
+            </div>
+            <h3 class="service-title">Computer & Laptop Repair</h3>
+            <p class="service-description">
+              Hardware and software troubleshooting, virus removal, operating
+              system installation.
+            </p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="fas fa-mobile-alt"></i>
+            </div>
+            <h3 class="service-title">Smartphone Repair</h3>
+            <p class="service-description">
+              Screen replacements, battery issues, software updates and data
+              recovery.
+            </p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="fas fa-network-wired"></i>
+            </div>
+            <h3 class="service-title">Network & Internet Setup</h3>
+            <p class="service-description">
+              Wi-Fi troubleshooting, router configuration, office network
+              installations.
+            </p>
+          </div>
+          <div class="service-card">
+            <div class="service-icon">
+              <i class="fas fa-database"></i>
+            </div>
+            <h3 class="service-title">Data Recovery & Security</h3>
+            <p class="service-description">
+              Recovering lost files, improving cybersecurity measures, setting
+              up backups.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="section how-it-works">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">How It Works</h2>
+          <p class="section-subtitle">
+            Get your tech issues resolved in just a few simple steps.
+          </p>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <h3 class="step-title">Describe Your Issue</h3>
+            <p class="step-description">
+              Tell us what's wrong with your device or what service you need.
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-number">2</div>
+            <h3 class="step-title">Choose a Technician</h3>
+            <p class="step-description">
+              Browse profiles, check reviews, and select the right expert for
+              your needs.
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-number">3</div>
+            <h3 class="step-title">Book & Pay Securely</h3>
+            <p class="step-description">
+              Schedule an appointment and pay securely through our platform.
+            </p>
+          </div>
+          <div class="step">
+            <div class="step-number">4</div>
+            <h3 class="step-title">Get Your Fix</h3>
+            <p class="step-description">
+              Meet with your technician for on-site service or remote support.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technicians Section -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Top Technicians</h2>
+          <p class="section-subtitle">
+            Meet our highly-rated IT specialists ready to solve your tech
+            problems.
+          </p>
+        </div>
+        <div class="technicians-grid">
+          <div class="technician-card">
+            <img
+              src="/api/placeholder/400/200"
+              alt="Technician"
+              class="technician-image"
+            />
+            <div class="technician-info">
+              <h3 class="technician-name">Mohamed Benderradji</h3>
+              <p class="technician-specialty">Computer Hardware Specialist</p>
+              <div class="technician-rating">
+                <div class="stars">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star-half-alt"></i>
+                </div>
+                <span>4.5 (120 reviews)</span>
+              </div>
+              <div class="technician-location">
+                <i class="fas fa-map-marker-alt"></i> Algiers, Algeria
+              </div>
+              <a href="pages/booking.html" class="btn btn-primary">Book Now</a>
+            </div>
+          </div>
+          <div class="technician-card">
+            <img
+              src="/api/placeholder/400/200"
+              alt="Technician"
+              class="technician-image"
+            />
+            <div class="technician-info">
+              <h3 class="technician-name">Ammar Aissa Mebrek</h3>
+              <p class="technician-specialty">Network & Security Expert</p>
+              <div class="technician-rating">
+                <div class="stars">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+                <span>5.0 (87 reviews)</span>
+              </div>
+              <div class="technician-location">
+                <i class="fas fa-map-marker-alt"></i> Oran, Algeria
+              </div>
+              <a href="pages/booking.html" class="btn btn-primary">Book Now</a>
+            </div>
+          </div>
+          <div class="technician-card">
+            <img
+              src="/api/placeholder/400/200"
+              alt="Technician"
+              class="technician-image"
+            />
+            <div class="technician-info">
+              <h3 class="technician-name">Taki Eddine Islam Attal</h3>
+              <p class="technician-specialty">Mobile Device Repair</p>
+              <div class="technician-rating">
+                <div class="stars">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="far fa-star"></i>
+                </div>
+                <span>4.0 (95 reviews)</span>
+              </div>
+              <div class="technician-location">
+                <i class="fas fa-map-marker-alt"></i> Constantine, Algeria
+              </div>
+              <a href="pages/booking.html" class="btn btn-primary">Book Now</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="section testimonials">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Customer Testimonials</h2>
+          <p class="section-subtitle">
+            See what our customers are saying about their experience with
+            FixItNow.
+          </p>
+        </div>
+        <div class="testimonials-container">
+          <div class="testimonial">
+            <p class="testimonial-text">
+              "I was having issues with my laptop and found Mohamed through
+              FixItNow. He was prompt, professional, and fixed the problem in no
+              time. Highly recommended!"
+            </p>
+            <div class="testimonial-author">Sarah K.</div>
+            <div class="testimonial-role">Business Owner</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="section cta">
+      <div class="container">
+        <h2 class="cta-title">Ready to Fix Your Tech Problems?</h2>
+        <p class="cta-description">
+          Join thousands of satisfied customers who have found reliable tech
+          support through FixItNow.
+        </p>
+        <div class="cta-buttons">
+          <a href="pages/booking.html" class="btn btn-light"
+            >Book a Technician</a
+          >
+          <a href="pages/register.html" class="btn btn-light"
+            >Sign Up as Technician</a
+          >
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-column">
+            <h3>FixItNow</h3>
+            <p>
+              The trusted platform for connecting with skilled IT technicians
+              for all your tech repair needs.
+            </p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+          </div>
+          <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="pages/services.html">Services</a></li>
+              <li><a href="pages/technicians.html">Technicians</a></li>
+              <li><a href="pages/about.html">About Us</a></li>
+              <li><a href="pages/booking.html">Book Now</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Services</h3>
+            <ul class="footer-links">
+              <li><a href="pages/services.html">Computer Repair</a></li>
+              <li><a href="pages/services.html">Smartphone Repair</a></li>
+              <li><a href="pages/services.html">Network Setup</a></li>
+              <li><a href="pages/services.html">Data Recovery</a></li>
+              <li><a href="pages/services.html">Cybersecurity</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Contact Us</h3>
+            <ul class="footer-links">
+              <li><i class="fas fa-envelope"></i> info@fixitnow.com</li>
+              <li><i class="fas fa-phone"></i> +213 555 123 456</li>
+              <li><i class="fas fa-map-marker-alt"></i> Algiers, Algeria</li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 FixItNow. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Mobile Menu Toggle
+      const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
+      const mainNav = document.getElementById("main-nav");
+
+      mobileMenuToggle.addEventListener("click", () => {
+        mainNav.classList.toggle("active");
+      });
+
+      // Testimonial Slider (simplified version)
+      const testimonials = [
+        {
+          text: "I was having issues with my laptop and found Mohamed through FixItNow. He was prompt, professional, and fixed the problem in no time. Highly recommended!",
+          author: "Sarah K.",
+          role: "Business Owner",
+        },
+        {
+          text: "My smartphone screen was cracked, and I needed a quick fix. Through FixItNow, I found a technician who came to my office the same day. Excellent service!",
+          author: "Ahmed M.",
+          role: "Marketing Manager",
+        },
+        {
+          text: "Setting up our office network seemed daunting until we used FixItNow. The technician was knowledgeable and made the process easy to understand.",
+          author: "Leila B.",
+          role: "Startup Founder",
+        },
+      ];
+
+      const testimonialElement = document.querySelector(".testimonial");
+      let currentTestimonialIndex = 0;
+
+      function updateTestimonial() {
+        const testimonial = testimonials[currentTestimonialIndex];
+        testimonialElement.innerHTML = `
+                <p class="testimonial-text">"${testimonial.text}"</p>
+                <div class="testimonial-author">${testimonial.author}</div>
+                <div class="testimonial-role">${testimonial.role}</div>
+            `;
+        currentTestimonialIndex =
+          (currentTestimonialIndex + 1) % testimonials.length;
+      }
+
+      // Change testimonial every 5 seconds
+      setInterval(updateTestimonial, 5000);
+    </script>
+    <script>
+      /**
+       * FixItNow - Main JavaScript
+       * Contains core functionality used across the website
+       */
+
+      // DOM elements
+      const mobileMenuToggl = document.getElementById("mobile-menu-toggle");
+      const mainNa = document.getElementById("main-nav");
+
+      // Mobile menu toggle functionality
+      if (mobileMenuToggl) {
+        mobileMenuToggle.addEventListener("click", () => {
+          mainNa.classList.toggle("active");
+        });
+      }
+
+      // Testimonial slider functionality
+      function initTestimonialSlider() {
+        const testimonialContainer = document.querySelector(".testimonial");
+        if (!testimonialContainer) return;
+
+        const testimonials = [
+          {
+            text: "I was having issues with my laptop and found Mohamed through FixItNow. He was prompt, professional, and fixed the problem in no time. Highly recommended!",
+            author: "Sarah K.",
+            role: "Business Owner",
+          },
+          {
+            text: "My smartphone screen was cracked, and I needed a quick fix. Through FixItNow, I found a technician who came to my office the same day. Excellent service!",
+            author: "Ahmed M.",
+            role: "Marketing Manager",
+          },
+          {
+            text: "Setting up our office network seemed daunting until we used FixItNow. The technician was knowledgeable and made the process easy to understand.",
+            author: "Leila B.",
+            role: "Startup Founder",
+          },
+        ];
+
+        let currentTestimonialIndex = 0;
+
+        function updateTestimonial() {
+          const testimonial = testimonials[currentTestimonialIndex];
+          testimonialContainer.innerHTML = `
+            <p class="testimonial-text">"${testimonial.text}"</p>
+            <div class="testimonial-author">${testimonial.author}</div>
+            <div class="testimonial-role">${testimonial.role}</div>
+        `;
+          currentTestimonialIndex =
+            (currentTestimonialIndex + 1) % testimonials.length;
+        }
+
+        // Initial testimonial
+        updateTestimonial();
+
+        // Change testimonial every 5 seconds
+        setInterval(updateTestimonial, 5000);
+      }
+
+      // Service search functionality
+      function initServiceSearch() {
+        const searchInput = document.querySelector(".search-bar input");
+        const searchButton = document.querySelector(".search-bar button");
+
+        if (!searchInput || !searchButton) return;
+
+        searchButton.addEventListener("click", () => {
+          const searchQuery = searchInput.value.trim();
+          if (searchQuery) {
+            // In a real implementation, this would search for services or redirect to a search results page
+            window.location.href = `pages/services.html?search=${encodeURIComponent(
+              searchQuery
+            )}`;
+          }
+        });
+
+        // Allow search on Enter key press
+        searchInput.addEventListener("keypress", (e) => {
+          if (e.key === "Enter") {
+            searchButton.click();
+          }
+        });
+      }
+
+      // Init functions on page load
+      document.addEventListener("DOMContentLoaded", () => {
+        initTestimonialSlider();
+        initServiceSearch();
+
+        // Add smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+
+            const targetId = this.getAttribute("href").substring(1);
+            const targetElement = document.getElementById(targetId);
+
+            if (targetElement) {
+              window.scrollTo({
+                top: targetElement.offsetTop - 80,
+                behavior: "smooth",
+              });
+            }
+          });
+        });
+      });
+
+      // Form validation helper function
+      function validateForm(formElement, validationRules = {}) {
+        let isValid = true;
+        const formData = {};
+
+        // Process each form field
+        for (const [fieldName, rule] of Object.entries(validationRules)) {
+          const field = formElement.elements[fieldName];
+          if (!field) continue;
+
+          const value = field.value.trim();
+          formData[fieldName] = value;
+
+          // Reset previous error state
+          field.classList.remove("error");
+          const errorElement = document.getElementById(`${fieldName}-error`);
+          if (errorElement) errorElement.style.display = "none";
+
+          // Check required fields
+          if (rule.required && !value) {
+            isValid = false;
+            field.classList.add("error");
+            if (errorElement) {
+              errorElement.textContent =
+                rule.requiredMessage || "This field is required";
+              errorElement.style.display = "block";
+            }
+            continue;
+          }
+
+          // Check email format
+          if (
+            rule.email &&
+            value &&
+            !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+          ) {
+            isValid = false;
+            field.classList.add("error");
+            if (errorElement) {
+              errorElement.textContent =
+                rule.emailMessage || "Please enter a valid email address";
+              errorElement.style.display = "block";
+            }
+          }
+
+          // Check minimum length
+          if (rule.minLength && value.length < rule.minLength) {
+            isValid = false;
+            field.classList.add("error");
+            if (errorElement) {
+              errorElement.textContent =
+                rule.minLengthMessage ||
+                `Must be at least ${rule.minLength} characters`;
+              errorElement.style.display = "block";
+            }
+          }
+
+          // Check for pattern match (e.g., password strength)
+          if (rule.pattern && value && !rule.pattern.test(value)) {
+            isValid = false;
+            field.classList.add("error");
+            if (errorElement) {
+              errorElement.textContent =
+                rule.patternMessage || "Invalid format";
+              errorElement.style.display = "block";
+            }
+          }
+
+          // Check if passwords match (for registration)
+          if (rule.matchWith && formElement.elements[rule.matchWith]) {
+            const matchValue =
+              formElement.elements[rule.matchWith].value.trim();
+            if (value !== matchValue) {
+              isValid = false;
+              field.classList.add("error");
+              if (errorElement) {
+                errorElement.textContent =
+                  rule.matchMessage || "Values do not match";
+                errorElement.style.display = "block";
+              }
+            }
+          }
+        }
+
+        return { isValid, formData };
+      }
+
+      // Dark/Light theme toggle
+      function initThemeToggle() {
+        const themeToggle = document.getElementById("theme-toggle");
+        if (!themeToggle) return;
+
+        // Check user preference
+        const isDarkMode = localStorage.getItem("darkMode") === "true";
+
+        // Initial theme setup
+        if (isDarkMode) {
+          document.body.classList.add("dark-theme");
+          themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        } else {
+          document.body.classList.remove("dark-theme");
+          themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        }
+
+        // Theme toggle click handler
+        themeToggle.addEventListener("click", () => {
+          const isDark = document.body.classList.toggle("dark-theme");
+          localStorage.setItem("darkMode", isDark.toString());
+
+          themeToggle.innerHTML = isDark
+            ? '<i class="fas fa-sun"></i>'
+            : '<i class="fas fa-moon"></i>';
+        });
+      }
+
+      // Initialize theme toggle when DOM is loaded
+      document.addEventListener("DOMContentLoaded", initThemeToggle);
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us - FixItNow</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* CSS Reset and Base Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      :root {
+        --primary: #2563eb;
+        --primary-dark: #1d4ed8;
+        --secondary: #10b981;
+        --dark: #1e293b;
+        --light: #f8fafc;
+        --gray: #64748b;
+        --light-gray: #e2e8f0;
+      }
+
+      body {
+        background-color: var(--light);
+        color: var(--dark);
+        line-height: 1.6;
+      }
+
+      /* Container */
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+
+      /* Header Styles */
+      header {
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+      nav ul li a.active {
+        color: var(--primary);
+      }
+
+      .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary);
+        text-decoration: none;
+      }
+
+      .logo span {
+        color: var(--secondary);
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+      }
+
+      nav ul li {
+        margin-left: 1.5rem;
+      }
+
+      nav ul li a {
+        text-decoration: none;
+        color: var(--dark);
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      nav ul li a:hover {
+        color: var(--primary);
+      }
+
+      .auth-buttons {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .btn {
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        font-weight: 500;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .btn-primary {
+        background-color: var(--primary);
+        color: white;
+        border: none;
+      }
+
+      .btn-primary:hover {
+        background-color: var(--primary-dark);
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        color: var(--primary);
+        border: 1px solid var(--primary);
+      }
+
+      .btn-outline:hover {
+        background-color: var(--primary);
+        color: white;
+      }
+
+      /* Page Header */
+      .page-header {
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+          url("/api/placeholder/1200/400") center/cover;
+        color: white;
+        padding: 4rem 0;
+        text-align: center;
+      }
+
+      .page-title {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .page-subtitle {
+        font-size: 1.1rem;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      /* Section Styles */
+      .section {
+        padding: 4rem 0;
+      }
+
+      .section-header {
+        text-align: center;
+        margin-bottom: 2.5rem;
+      }
+
+      .section-title {
+        font-size: 2rem;
+        color: var(--dark);
+        margin-bottom: 0.5rem;
+      }
+
+      .section-subtitle {
+        color: var(--gray);
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      /* About Content */
+      .about-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: center;
+      }
+
+      .about-image {
+        width: 100%;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .about-text h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        color: var(--primary);
+      }
+
+      .about-text p {
+        margin-bottom: 1.5rem;
+        color: var(--gray);
+      }
+
+      .stats-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1.5rem;
+        margin-top: 2rem;
+      }
+
+      .stat-item {
+        text-align: center;
+        padding: 1.5rem;
+        background-color: white;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      .stat-number {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 0.5rem;
+      }
+
+      .stat-label {
+        color: var(--gray);
+        font-size: 0.9rem;
+      }
+
+      /* Mission & Values */
+      .mission-values {
+        background-color: var(--light-gray);
+      }
+
+      .mission-values-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+
+      .mission-card,
+      .values-card {
+        background-color: white;
+        padding: 2rem;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      .card-icon {
+        font-size: 2.5rem;
+        color: var(--primary);
+        margin-bottom: 1rem;
+      }
+
+      .card-title {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .values-list {
+        list-style: none;
+      }
+
+      .values-list li {
+        margin-bottom: 1rem;
+        padding-left: 1.5rem;
+        position: relative;
+      }
+
+      .values-list li:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.5rem;
+        width: 8px;
+        height: 8px;
+        background-color: var(--secondary);
+        border-radius: 50%;
+      }
+
+      /* Team Section */
+      .team-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 2rem;
+      }
+
+      .team-card {
+        background-color: white;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .team-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .team-image {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+      }
+
+      .team-info {
+        padding: 1.5rem;
+        text-align: center;
+      }
+
+      .team-name {
+        font-size: 1.25rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .team-role {
+        color: var(--primary);
+        margin-bottom: 1rem;
+        font-weight: 500;
+      }
+
+      .team-bio {
+        color: var(--gray);
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+      }
+
+      .social-links {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+      }
+
+      .social-links a {
+        color: var(--gray);
+        font-size: 1.1rem;
+        transition: color 0.3s;
+      }
+
+      .social-links a:hover {
+        color: var(--primary);
+      }
+
+      /* CTA Section */
+      .cta {
+        background-color: var(--primary);
+        color: white;
+        text-align: center;
+        padding: 4rem 0;
+      }
+
+      .cta-title {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      .cta-description {
+        max-width: 700px;
+        margin: 0 auto 2rem;
+        font-size: 1.1rem;
+      }
+
+      .cta-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .btn-light {
+        background-color: white;
+        color: var(--primary);
+      }
+
+      .btn-light:hover {
+        background-color: var(--light-gray);
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--dark);
+        color: white;
+        padding: 4rem 0 2rem;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .footer-column h3 {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+      }
+
+      .footer-links {
+        list-style: none;
+      }
+
+      .footer-links li {
+        margin-bottom: 0.5rem;
+      }
+
+      .footer-links a {
+        color: var(--light-gray);
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-links a:hover {
+        color: white;
+      }
+
+      .footer-social-links {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .footer-social-links a {
+        color: white;
+        font-size: 1.25rem;
+        transition: color 0.3s;
+      }
+
+      .footer-social-links a:hover {
+        color: var(--secondary);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      /* Mobile Menu */
+      .mobile-menu-toggle {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: var(--dark);
+        cursor: pointer;
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 992px) {
+        .about-content {
+          grid-template-columns: 1fr;
+        }
+
+        .about-image {
+          margin-bottom: 2rem;
+          grid-row: 1;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .mobile-menu-toggle {
+          display: block;
+        }
+
+        nav {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background-color: white;
+          box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+          padding: 1rem;
+        }
+
+        nav.active {
+          display: block;
+        }
+
+        nav ul {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        nav ul li {
+          margin-left: 0;
+        }
+
+        .auth-buttons {
+          display: none;
+        }
+
+        .page-title {
+          font-size: 2rem;
+        }
+
+        .section-title {
+          font-size: 1.75rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container header-container">
+        <a href="../index.html" class="logo">
+          <i class="fas fa-tools"></i>&nbsp;Fix<span>It</span>Now
+        </a>
+        <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+          <i class="fas fa-bars"></i>
+        </button>
+        <nav id="main-nav">
+          <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="technicians.html">Technicians</a></li>
+            <li><a href="about.html" class="active">About Us</a></li>
+            <li><a href="booking.html">Book Now</a></li>
+          </ul>
+        </nav>
+        <div class="auth-buttons">
+          <a href="login.html" class="btn btn-outline">Login</a>
+          <a href="register.html" class="btn btn-primary">Sign Up</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+      <div class="container">
+        <h1 class="page-title">About FixItNow</h1>
+        <p class="page-subtitle">
+          Learn about our mission, team, and commitment to solving tech problems
+          through our trusted marketplace for IT services.
+        </p>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section">
+      <div class="container">
+        <div class="about-content">
+          <img
+            src="/api/placeholder/600/400"
+            alt="FixItNow Team"
+            class="about-image"
+          />
+          <div class="about-text">
+            <h3>Our Story</h3>
+            <p>
+              FixItNow was founded in 2024 with a simple yet powerful vision: to
+              bridge the gap between individuals experiencing technical problems
+              and qualified IT technicians who can solve them.
+            </p>
+            <p>
+              We recognized that many people struggle to find reliable and
+              affordable technical support. Local repair services often lack
+              visibility, and customers may face difficulties in assessing the
+              credibility of technicians. That's why we built FixItNow as a
+              trusted marketplace where users can find, book, and review
+              professional IT services with confidence.
+            </p>
+            <p>
+              Our platform simplifies access to tech support services by
+              providing an easy-to-use, efficient, and secure platform that
+              connects people with the right expertise for their specific
+              technical issues.
+            </p>
+          </div>
+        </div>
+
+        <div class="stats-container">
+          <div class="stat-item">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Verified Technicians</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">10,000+</div>
+            <div class="stat-label">Happy Customers</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">15,000+</div>
+            <div class="stat-label">Problems Solved</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">4.8/5</div>
+            <div class="stat-label">Average Rating</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mission & Values Section -->
+    <section class="section mission-values">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Our Mission & Values</h2>
+          <p class="section-subtitle">
+            What drives us and guides our decisions every day
+          </p>
+        </div>
+        <div class="mission-values-container">
+          <div class="mission-card">
+            <div class="card-icon">
+              <i class="fas fa-bullseye"></i>
+            </div>
+            <h3 class="card-title">Our Mission</h3>
+            <p>
+              At FixItNow, our mission is to revolutionize the way people access
+              IT support by creating a user-friendly, reliable, and efficient
+              platform that connects customers with skilled technicians.
+            </p>
+            <p>
+              We aim to make technical assistance accessible to everyone,
+              regardless of their location or technical knowledge, while
+              providing new opportunities for IT professionals to grow their
+              businesses through our online marketplace.
+            </p>
+          </div>
+          <div class="values-card">
+            <div class="card-icon">
+              <i class="fas fa-heart"></i>
+            </div>
+            <h3 class="card-title">Our Values</h3>
+            <ul class="values-list">
+              <li>
+                <strong>Trust and Reliability:</strong> Building confidence
+                through verified technicians and secure transactions.
+              </li>
+              <li>
+                <strong>Accessibility:</strong> Making tech support available to
+                everyone, everywhere.
+              </li>
+              <li>
+                <strong>Quality Service:</strong> Maintaining high standards
+                through reviews and ratings.
+              </li>
+              <li>
+                <strong>Innovation:</strong> Constantly improving our platform
+                for better user experience.
+              </li>
+              <li>
+                <strong>Community:</strong> Nurturing relationships between
+                technicians and customers.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="section">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Meet Our Team</h2>
+          <p class="section-subtitle">The dedicated minds behind FixItNow</p>
+        </div>
+        <div class="team-grid">
+          <div class="team-card">
+            <img
+              src="/api/placeholder/400/400"
+              alt="Mohamed Benderradji"
+              class="team-image"
+            />
+            <div class="team-info">
+              <h3 class="team-name">Mohamed Benderradji</h3>
+              <p class="team-role">Co-Founder & CEO</p>
+              <p class="team-bio">
+                Mohamed is a computer hardware specialist with over 10 years of
+                experience in IT solutions. His vision drives FixItNow's mission
+                to connect people with qualified technicians.
+              </p>
+              <div class="social-links">
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fas fa-envelope"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="team-card">
+            <img
+              src="/api/placeholder/400/400"
+              alt="Ammar Aissa Mebrek"
+              class="team-image"
+            />
+            <div class="team-info">
+              <h3 class="team-name">Ammar Aissa Mebrek</h3>
+              <p class="team-role">Co-Founder & CTO</p>
+              <p class="team-bio">
+                Ammar is a network and security expert who leads the technical
+                development of the FixItNow platform, ensuring a seamless and
+                secure experience for all users.
+              </p>
+              <div class="social-links">
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fas fa-envelope"></i></a>
+              </div>
+            </div>
+          </div>
+          <div class="team-card">
+            <img
+              src="/api/placeholder/400/400"
+              alt="Taki Eddine Islam Attal"
+              class="team-image"
+            />
+            <div class="team-info">
+              <h3 class="team-name">Taki Eddine Islam Attal</h3>
+              <p class="team-role">Co-Founder & COO</p>
+              <p class="team-bio">
+                Taki is a mobile device repair specialist who oversees
+                operations at FixItNow, focusing on improving customer
+                experience and technician onboarding processes.
+              </p>
+              <div class="social-links">
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fas fa-envelope"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+      <div class="container">
+        <h2 class="cta-title">Join the FixItNow Community</h2>
+        <p class="cta-description">
+          Whether you're looking for tech support or you're a technician ready
+          to offer your services, become part of our growing community today.
+        </p>
+        <div class="cta-buttons">
+          <a href="booking.html" class="btn btn-light">Find a Technician</a>
+          <a href="register.html" class="btn btn-light">Join as a Technician</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-column">
+            <h3>FixItNow</h3>
+            <p>
+              The trusted platform for connecting with skilled IT technicians
+              for all your tech repair needs.
+            </p>
+            <div class="footer-social-links">
+              <a href="#"><i class="fab fa-facebook"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+          </div>
+          <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="../index.html">Home</a></li>
+              <li><a href="services.html">Services</a></li>
+              <li><a href="technicians.html">Technicians</a></li>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="booking.html">Book Now</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Services</h3>
+            <ul class="footer-links">
+              <li><a href="services.html">Computer Repair</a></li>
+              <li><a href="services.html">Smartphone Repair</a></li>
+              <li><a href="services.html">Network Setup</a></li>
+              <li><a href="services.html">Data Recovery</a></li>
+              <li><a href="services.html">Cybersecurity</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Contact Us</h3>
+            <ul class="footer-links">
+              <li><i class="fas fa-envelope"></i> info@fixitnow.com</li>
+              <li><i class="fas fa-phone"></i> +213 555 123 456</li>
+              <li><i class="fas fa-map-marker-alt"></i> Algiers, Algeria</li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 FixItNow. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // JavaScript for the About Us Page
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Team member info modal functionality
+        const teamMembers = document.querySelectorAll(".team-member");
+        const modal = document.getElementById("team-modal");
+        const modalClose = document.querySelector(".modal-close");
+        const modalContent = document.querySelector(".modal-content");
+        const body = document.body;
+
+        // Open modal when clicking on team member
+        teamMembers.forEach(function (member) {
+          member.addEventListener("click", function () {
+            const name = this.querySelector(".member-name").textContent;
+            const role = this.querySelector(".member-role").textContent;
+            const imgSrc = this.querySelector("img").src;
+
+            // Create bio based on team member name
+            let bio = "";
+            if (name.includes("Mohamed")) {
+              bio =
+                "Mohamed Benderradji is an expert in computer hardware repairs with over 7 years of experience in the IT industry. He specializes in diagnosing and fixing complex hardware issues, upgrading systems, and optimizing performance. Mohamed holds certifications in CompTIA A+ and has worked with major tech companies before joining the FixItNow team.";
+            } else if (name.includes("Ammar")) {
+              bio =
+                "Ammar Aissa Mebrek is our network and security expert with a background in cybersecurity and IT infrastructure. With expertise in setting up secure networks, troubleshooting connectivity issues, and implementing robust security measures, Ammar ensures that our clients' networks are both efficient and protected. He holds CCNA and CompTIA Security+ certifications.";
+            } else if (name.includes("Taki")) {
+              bio =
+                "Taki Eddine Islam Attal specializes in mobile device repairs and software solutions. With extensive experience working with various smartphone brands and operating systems, he can quickly diagnose and fix issues ranging from screen replacements to software optimizations. Taki is certified in mobile device repair and stays up-to-date with the latest mobile technologies.";
+            } else {
+              bio =
+                "A valued member of our technical support team who brings expertise and dedication to every project. With a strong background in IT solutions and customer service, they ensure that clients receive top-quality assistance for all their technology needs.";
+            }
+
+            // Create achievements based on team member name
+            let achievements = "";
+            if (name.includes("Mohamed")) {
+              achievements = `
+                    <li>Completed over 5,000 successful computer repairs</li>
+                    <li>Developed a diagnostic tool used by the entire technical team</li>
+                    <li>Reduced average repair time by 35% through process optimization</li>
+                    <li>Won "Technician of the Year" award twice</li>
+                `;
+            } else if (name.includes("Ammar")) {
+              achievements = `
+                    <li>Implemented network security protocols for 50+ small businesses</li>
+                    <li>Published research on modern network security challenges</li>
+                    <li>Conducted workshops on cybersecurity best practices</li>
+                    <li>Certified ethical hacker with expertise in penetration testing</li>
+                `;
+            } else if (name.includes("Taki")) {
+              achievements = `
+                    <li>Specialized training in the latest smartphone repair techniques</li>
+                    <li>Developed a mobile diagnostics application</li>
+                    <li>Successfully recovered data from over 300 damaged devices</li>
+                    <li>Expert in iOS and Android operating systems</li>
+                `;
+            } else {
+              achievements = `
+                    <li>Consistently receives 5-star customer reviews</li>
+                    <li>Specializes in rapid response technical support</li>
+                    <li>Developed multiple internal training materials</li>
+                    <li>Valued team member with expertise in customer satisfaction</li>
+                `;
+            }
+
+            // Populate modal content
+            modalContent.innerHTML = `
+                <div class="modal-header">
+                    <h2>${name}</h2>
+                    <span class="modal-close">&times;</span>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-image">
+                        <img src="${imgSrc}" alt="${name}">
+                    </div>
+                    <div class="modal-info">
+                        <h3>${role}</h3>
+                        <p class="modal-bio">${bio}</p>
+                        <div class="modal-achievements">
+                            <h4>Achievements</h4>
+                            <ul>${achievements}</ul>
+                        </div>
+                        <div class="modal-contact">
+                            <h4>Contact</h4>
+                            <p><i class="fas fa-envelope"></i> ${name
+                              .split(" ")[0]
+                              .toLowerCase()}@fixitnow.com</p>
+                            <div class="modal-social">
+                                <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                                <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Show modal
+            modal.style.display = "block";
+            body.classList.add("modal-open");
+
+            // Set up new close button
+            const newCloseButton = modal.querySelector(".modal-close");
+            newCloseButton.addEventListener("click", closeModal);
+          });
+        });
+
+        // Close modal function
+        function closeModal() {
+          modal.style.display = "none";
+          body.classList.remove("modal-open");
+        }
+
+        // Close modal when clicking X
+        if (modalClose) {
+          modalClose.addEventListener("click", closeModal);
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener("click", function (e) {
+          if (e.target === modal) {
+            closeModal();
+          }
+        });
+
+        // Timeline animation
+        const timelineEvents = document.querySelectorAll(".timeline-event");
+
+        function checkTimelineInView() {
+          timelineEvents.forEach(function (event) {
+            const rect = event.getBoundingClientRect();
+            const isInView =
+              rect.top >= 0 &&
+              rect.bottom <=
+                (window.innerHeight || document.documentElement.clientHeight);
+
+            if (isInView) {
+              event.classList.add("in-view");
+            }
+          });
+        }
+
+        // Check on load
+        checkTimelineInView();
+
+        // Check on scroll
+        window.addEventListener("scroll", checkTimelineInView);
+
+        // Testimonial slider
+        const testimonialSlider = document.querySelector(".testimonial-slider");
+        const testimonials = document.querySelectorAll(".testimonial");
+        const prevBtn = document.querySelector(".testimonial-prev");
+        const nextBtn = document.querySelector(".testimonial-next");
+        let currentIndex = 0;
+
+        // Set up testimonial navigation if elements exist
+        if (
+          testimonialSlider &&
+          testimonials.length > 0 &&
+          prevBtn &&
+          nextBtn
+        ) {
+          // Function to show testimonial at index
+          function showTestimonial(index) {
+            if (index < 0) {
+              index = testimonials.length - 1;
+            } else if (index >= testimonials.length) {
+              index = 0;
+            }
+
+            currentIndex = index;
+
+            testimonials.forEach((testimonial, i) => {
+              testimonial.style.transform = `translateX(${
+                100 * (i - currentIndex)
+              }%)`;
+            });
+          }
+
+          // Initial setup
+          testimonials.forEach((testimonial, i) => {
+            testimonial.style.transform = `translateX(${100 * i}%)`;
+          });
+
+          // Add click events to buttons
+          prevBtn.addEventListener("click", () => {
+            showTestimonial(currentIndex - 1);
+          });
+
+          nextBtn.addEventListener("click", () => {
+            showTestimonial(currentIndex + 1);
+          });
+
+          // Auto-rotate testimonials
+          setInterval(() => {
+            showTestimonial(currentIndex + 1);
+          }, 6000);
+        }
+
+        // Stats counter animation
+        const stats = document.querySelectorAll(".stat-number");
+
+        function animateStats() {
+          stats.forEach(function (stat) {
+            const target = parseInt(stat.getAttribute("data-target"));
+            const duration = 2000; // 2 seconds
+            const stepTime = 50; // update every 50ms
+            const totalSteps = duration / stepTime;
+            const stepValue = target / totalSteps;
+            let currentValue = 0;
+
+            const interval = setInterval(function () {
+              currentValue += stepValue;
+
+              if (currentValue >= target) {
+                stat.textContent = target.toLocaleString();
+                clearInterval(interval);
+              } else {
+                stat.textContent = Math.floor(currentValue).toLocaleString();
+              }
+            }, stepTime);
+          });
+        }
+
+        // Intersection Observer for stats
+        if ("IntersectionObserver" in window) {
+          const statsSection = document.querySelector(".stats-section");
+
+          if (statsSection) {
+            const observer = new IntersectionObserver(
+              (entries) => {
+                entries.forEach((entry) => {
+                  if (entry.isIntersecting) {
+                    animateStats();
+                    observer.unobserve(entry.target);
+                  }
+                });
+              },
+              { threshold: 0.5 }
+            );
+
+            observer.observe(statsSection);
+          }
+        } else {
+          // Fallback for browsers without Intersection Observer
+          window.addEventListener("scroll", function () {
+            const statsSection = document.querySelector(".stats-section");
+            if (!statsSection) return;
+
+            const rect = statsSection.getBoundingClientRect();
+            const isInView =
+              rect.top >= 0 &&
+              rect.bottom <=
+                (window.innerHeight || document.documentElement.clientHeight);
+
+            if (isInView) {
+              animateStats();
+              window.removeEventListener("scroll", this);
+            }
+          });
+        }
+
+        // Newsletter form
+        const newsletterForm = document.getElementById("newsletter-form");
+
+        if (newsletterForm) {
+          newsletterForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const emailInput = document.getElementById("newsletter-email");
+            const subscribeBtn = document.getElementById("subscribe-btn");
+            const formMessage = document.createElement("div");
+            formMessage.className = "form-message success";
+
+            formMessage.textContent =
+              "Thank you for subscribing to our newsletter!";
+
+            // Replace form with success message
+            newsletterForm.innerHTML = "";
+            newsletterForm.appendChild(formMessage);
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

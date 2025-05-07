@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Dashboard - FixItNow</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* CSS Reset and Base Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      :root {
+        --primary: #2563eb;
+        --primary-dark: #1d4ed8;
+        --secondary: #10b981;
+        --dark: #1e293b;
+        --light: #f8fafc;
+        --gray: #64748b;
+        --light-gray: #e2e8f0;
+        --danger: #ef4444;
+        --warning: #f59e0b;
+        --success: #10b981;
+      }
+
+      body {
+        background-color: #f3f4f6;
+        color: var(--dark);
+        line-height: 1.6;
+        min-height: 100vh;
+        display: flex;
+      }
+
+      /* Dashboard Layout */
+      .dashboard {
+        display: flex;
+        width: 100%;
+        min-height: 100vh;
+      }
+
+      /* Sidebar */
+      .sidebar {
+        width: 250px;
+        background-color: white;
+        border-right: 1px solid #e5e7eb;
+        height: 100vh;
+        position: fixed;
+        overflow-y: auto;
+        transition: all 0.3s;
+      }
+
+      .sidebar-header {
+        padding: 1.5rem;
+        border-bottom: 1px solid #e5e7eb;
+        display: flex;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+      }
+
+      .logo span {
+        color: var(--secondary);
+      }
+
+      .sidebar-menu {
+        padding: 1.5rem 0;
+      }
+
+      .menu-title {
+        padding: 0 1.5rem;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--gray);
+        margin-bottom: 0.75rem;
+      }
+
+      .menu-items {
+        list-style: none;
+      }
+
+      .menu-item {
+        margin-bottom: 0.25rem;
+      }
+
+      .menu-link {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: var(--dark);
+        padding: 0.75rem 1.5rem;
+        transition: all 0.3s;
+      }
+
+      .menu-link:hover,
+      .menu-link.active {
+        background-color: #f3f4f6;
+        color: var(--primary);
+      }
+
+      .menu-link i {
+        margin-right: 0.75rem;
+        width: 1.25rem;
+        text-align: center;
+      }
+
+      .user-profile {
+        padding: 1.5rem;
+        border-top: 1px solid #e5e7eb;
+        display: flex;
+        align-items: center;
+        margin-top: auto;
+      }
+
+      .avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--primary);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        margin-right: 0.75rem;
+      }
+
+      .user-info {
+        flex: 1;
+      }
+
+      .user-name {
+        font-weight: 600;
+        font-size: 0.875rem;
+      }
+
+      .user-email {
+        font-size: 0.75rem;
+        color: var(--gray);
+      }
+
+      /* Main Content */
+      .main-content {
+        flex: 1;
+        margin-left: 250px;
+        padding: 2rem;
+      }
+
+      .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+      }
+
+      .page-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+      }
+
+      .page-actions {
+        display: flex;
+        gap: 0.75rem;
+      }
+
+      .btn {
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        font-weight: 500;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+      }
+
+      .btn i {
+        margin-right: 0.5rem;
+      }
+
+      .btn-primary {
+        background-color: var(--primary);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background-color: var(--primary-dark);
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        color: var(--primary);
+        border: 1px solid var(--primary);
+      }
+
+      .btn-outline:hover {
+        background-color: var(--primary);
+        color: white;
+      }
+
+      /* Dashboard Cards */
+      .dashboard-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .card {
+        background-color: white;
+        border-radius: 0.5rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+      }
+
+      .stat-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .stat-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+      }
+
+      .stat-icon.blue {
+        background-color: rgba(37, 99, 235, 0.1);
+        color: var(--primary);
+      }
+
+      .stat-icon.green {
+        background-color: rgba(16, 185, 129, 0.1);
+        color: var(--success);
+      }
+
+      .stat-icon.orange {
+        background-color: rgba(245, 158, 11, 0.1);
+        color: var(--warning);
+      }
+
+      .stat-icon.red {
+        background-color: rgba(239, 68, 68, 0.1);
+        color: var(--danger);
+      }
+
+      .stat-info {
+        flex: 1;
+        margin-left: 1rem;
+      }
+
+      .stat-value {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+      }
+
+      .stat-label {
+        color: var(--gray);
+        font-size: 0.875rem;
+      }
+
+      /* Tables */
+      .table-container {
+        background-color: white;
+        border-radius: 0.5rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        margin-bottom: 2rem;
+      }
+
+      .table-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .table-title {
+        font-weight: 600;
+      }
+
+      .table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .table th,
+      .table td {
+        padding: 1rem 1.5rem;
+        text-align: left;
+      }
+
+      .table th {
+        background-color: #f9fafb;
+        font-weight: 600;
+        color: var(--gray);
+        font-size: 0.875rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .table tr {
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .table tr:last-child {
+        border-bottom: none;
+      }
+
+      .status {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 500;
+      }
+
+      .status.pending {
+        background-color: rgba(245, 158, 11, 0.1);
+        color: var(--warning);
+      }
+
+      .status.completed {
+        background-color: rgba(16, 185, 129, 0.1);
+        color: var(--success);
+      }
+
+      .status.cancelled {
+        background-color: rgba(239, 68, 68, 0.1);
+        color: var(--danger);
+      }
+
+      .status.scheduled {
+        background-color: rgba(37, 99, 235, 0.1);
+        color: var(--primary);
+      }
+
+      .table-actions {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .btn-icon {
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0.25rem;
+        background-color: transparent;
+        color: var(--gray);
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .btn-icon:hover {
+        background-color: #f3f4f6;
+        color: var(--primary);
+      }
+
+      /* Mobile Sidebar Toggle */
+      .sidebar-toggle {
+        position: fixed;
+        bottom: 1.5rem;
+        right: 1.5rem;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background-color: var(--primary);
+        color: white;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        z-index: 100;
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 768px) {
+        .sidebar {
+          left: -250px;
+        }
+
+        .sidebar.active {
+          left: 0;
+        }
+
+        .main-content {
+          margin-left: 0;
+        }
+
+        .sidebar-toggle {
+          display: flex;
+        }
+
+        .dashboard-cards {
+          grid-template-columns: 1fr;
+        }
+
+        .page-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 1rem;
+        }
+
+        .page-actions {
+          width: 100%;
+        }
+
+        .btn {
+          flex: 1;
+        }
+
+        .table-responsive {
+          overflow-x: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="dashboard">
+      <!-- Sidebar -->
+      <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+          <a href="/index.html" class="logo">
+            <i class="fas fa-tools"></i>&nbsp;Fix<span>It</span>Now
+          </a>
+        </div>
+        <div class="sidebar-menu">
+          <div class="menu-title">Main</div>
+          <ul class="menu-items">
+            <li class="menu-item">
+              <a href="#" class="menu-link active">
+                <i class="fas fa-tachometer-alt"></i> Dashboard
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="#" class="menu-link">
+                <i class="fas fa-calendar-alt"></i> My Bookings
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="#" class="menu-link">
+                <i class="fas fa-user-tie"></i> Find Technicians
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="#" class="menu-link">
+                <i class="fas fa-file-invoice"></i> Invoices
+              </a>
+            </li>
+          </ul>
+
+          <div class="menu-title">Account</div>
+          <ul class="menu-items">
+            <li class="menu-item">
+              <a href="#" class="menu-link">
+                <i class="fas fa-user"></i> My Profile
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="#" class="menu-link">
+                <i class="fas fa-cog"></i> Settings
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="#" class="menu-link">
+                <i class="fas fa-question-circle"></i> Help & Support
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="#" class="menu-link">
+                <i class="fas fa-sign-out-alt"></i> Logout
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="user-profile">
+          <div class="avatar">
+            <i class="fas fa-user"></i>
+          </div>
+          <div class="user-info">
+            <div class="user-name">Sarah Johnson</div>
+            <div class="user-email">sarah.j@example.com</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <div class="page-header">
+          <h1 class="page-title">Dashboard</h1>
+          <div class="page-actions">
+            <button class="btn btn-primary">
+              <i class="fas fa-plus"></i> New Booking
+            </button>
+          </div>
+        </div>
+
+        <!-- Dashboard Stats -->
+        <div class="dashboard-cards">
+          <div class="card stat-card">
+            <div class="stat-info">
+              <div class="stat-value">5</div>
+              <div class="stat-label">Total Bookings</div>
+            </div>
+            <div class="stat-icon blue">
+              <i class="fas fa-calendar-check"></i>
+            </div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-info">
+              <div class="stat-value">3</div>
+              <div class="stat-label">Completed</div>
+            </div>
+            <div class="stat-icon green">
+              <i class="fas fa-check-circle"></i>
+            </div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-info">
+              <div class="stat-value">1</div>
+              <div class="stat-label">Pending</div>
+            </div>
+            <div class="stat-icon orange">
+              <i class="fas fa-clock"></i>
+            </div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-info">
+              <div class="stat-value">1</div>
+              <div class="stat-label">Upcoming</div>
+            </div>
+            <div class="stat-icon red">
+              <i class="fas fa-calendar"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Recent Bookings -->
+        <div class="table-container">
+          <div class="table-header">
+            <div class="table-title">Recent Bookings</div>
+            <a href="#" class="view-all">View All</a>
+          </div>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Service</th>
+                  <th>Technician</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>#BK1001</td>
+                  <td>Laptop Repair</td>
+                  <td>Mohamed Benderradji</td>
+                  <td>Apr 18, 2025</td>
+                  <td><span class="status completed">Completed</span></td>
+                  <td>
+                    <div class="table-actions">
+                      <button class="btn-icon">
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button class="btn-icon">
+                        <i class="fas fa-file-invoice"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>#BK1002</td>
+                  <td>Smartphone Screen Replacement</td>
+                  <td>Taki Eddine Islam Attal</td>
+                  <td>Apr 15, 2025</td>
+                  <td><span class="status completed">Completed</span></td>
+                  <td>
+                    <div class="table-actions">
+                      <button class="btn-icon">
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button class="btn-icon">
+                        <i class="fas fa-file-invoice"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>#BK1003</td>
+                  <td>Wi-Fi Network Setup</td>
+                  <td>Ammar Aissa Mebrek</td>
+                  <td>Apr 10, 2025</td>
+                  <td><span class="status completed">Completed</span></td>
+                  <td>
+                    <div class="table-actions">
+                      <button class="btn-icon">
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button class="btn-icon">
+                        <i class="fas fa-file-invoice"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>#BK1004</td>
+                  <td>Virus Removal</td>
+                  <td>Mohamed Benderradji</td>
+                  <td>Apr 20, 2025</td>
+                  <td><span class="status pending">Pending</span></td>
+                  <td>
+                    <div class="table-actions">
+                      <button class="btn-icon">
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button class="btn-icon">
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>#BK1005</td>
+                  <td>Data Recovery</td>
+                  <td>Ammar Aissa Mebrek</td>
+                  <td>Apr 25, 2025</td>
+                  <td><span class="status scheduled">Scheduled</span></td>
+                  <td>
+                    <div class="table-actions">
+                      <button class="btn-icon">
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button class="btn-icon">
+                        <i class="fas fa-edit"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Recent Invoices -->
+        <div class="table-container">
+          <div class="table-header">
+            <div class="table-title">Recent Invoices</div>
+            <a href="#" class="view-all">View All</a>
+          </div>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Invoice ID</th>
+                  <th>Booking ID</th>
+                  <th>Amount</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>#INV2001</td>
+                  <td>#BK1001</td>
+                  <td>$75.00</td>
+                  <td>Apr 18, 2025</td>
+                  <td><span class="status completed">Paid</span></td>
+                  <td>
+                    <div class="table-actions">
+                      <button class="btn-icon">
+                        <i class="fas fa-file-pdf"></i>
+                      </button>
+                      <button class="btn-icon">
+                        <i class="fas fa-print"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>#INV2002</td>
+                  <td>#BK1002</td>
+                  <td>$120.00</td>
+                  <td>Apr 15, 2025</td>
+                  <td><span class="status completed">Paid</span></td>
+                  <td>
+                    <div class="table-actions">
+                      <button class="btn-icon">
+                        <i class="fas fa-file-pdf"></i>
+                      </button>
+                      <button class="btn-icon">
+                        <i class="fas fa-print"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>#INV2003</td>
+                  <td>#BK1003</td>
+                  <td>$95.00</td>
+                  <td>Apr 10, 2025</td>
+                  <td><span class="status completed">Paid</span></td>
+                  <td>
+                    <div class="table-actions">
+                      <button class="btn-icon">
+                        <i class="fas fa-file-pdf"></i>
+                      </button>
+                      <button class="btn-icon">
+                        <i class="fas fa-print"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Sidebar Toggle -->
+    <div class="sidebar-toggle" id="sidebar-toggle">
+      <i class="fas fa-bars"></i>
+    </div>
+
+    <script>
+      // Mobile Sidebar Toggle
+      const sidebarToggle = document.getElementById("sidebar-toggle");
+      const sidebar = document.getElementById("sidebar");
+
+      sidebarToggle.addEventListener("click", () => {
+        sidebar.classList.toggle("active");
+      });
+
+      // Close sidebar when clicking outside on mobile
+      document.addEventListener("click", (e) => {
+        if (window.innerWidth <= 768) {
+          if (!sidebar.contains(e.target) && e.target !== sidebarToggle) {
+            sidebar.classList.remove("active");
+          }
+        }
+      });
+
+      // Active menu item
+      const menuLinks = document.querySelectorAll(".menu-link");
+      menuLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          menuLinks.forEach((item) => item.classList.remove("active"));
+          link.classList.add("active");
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Technician Dashboard - FixItNow</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* CSS Reset and Base Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      :root {
+        --primary: #2563eb;
+        --primary-dark: #1d4ed8;
+        --secondary: #10b981;
+        --secondary-dark: #059669;
+        --dark: #1e293b;
+        --darker: #0f172a;
+        --light: #f8fafc;
+        --gray: #64748b;
+        --light-gray: #e2e8f0;
+        --danger: #ef4444;
+        --warning: #f59e0b;
+        --success: #10b981;
+      }
+
+      body {
+        background-color: #f1f5f9;
+        color: var(--dark);
+        line-height: 1.6;
+        min-height: 100vh;
+        display: flex;
+      }
+
+      /* Sidebar */
+      .sidebar {
+        width: 260px;
+        background-color: var(--darker);
+        color: white;
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        top: 0;
+        overflow-y: auto;
+        transition: all 0.3s ease;
+        z-index: 1000;
+      }
+
+      .sidebar-header {
+        padding: 1.5rem;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .sidebar-logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: white;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+      }
+
+      .sidebar-logo span {
+        color: var(--secondary);
+      }
+
+      .sidebar-logo i {
+        margin-right: 0.5rem;
+      }
+
+      .sidebar-menu {
+        padding: 1.5rem 0;
+      }
+
+      .menu-title {
+        color: var(--gray);
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 0 1.5rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .sidebar-menu ul {
+        list-style: none;
+      }
+
+      .sidebar-menu li {
+        margin-bottom: 0.25rem;
+      }
+
+      .sidebar-menu a {
+        display: flex;
+        align-items: center;
+        padding: 0.75rem 1.5rem;
+        color: var(--light-gray);
+        text-decoration: none;
+        transition: all 0.3s;
+        border-left: 3px solid transparent;
+      }
+
+      .sidebar-menu a:hover,
+      .sidebar-menu a.active {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+        border-left-color: var(--secondary);
+      }
+
+      .sidebar-menu a i {
+        width: 1.25rem;
+        margin-right: 0.75rem;
+        font-size: 1.1rem;
+      }
+
+      .sidebar-footer {
+        padding: 1.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        margin-top: auto;
+      }
+
+      .user-profile {
+        display: flex;
+        align-items: center;
+      }
+
+      .user-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-right: 0.75rem;
+        background-color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: white;
+      }
+
+      .user-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .user-info {
+        flex: 1;
+      }
+
+      .user-name {
+        font-weight: 600;
+        font-size: 0.9rem;
+      }
+
+      .user-role {
+        color: var(--gray);
+        font-size: 0.8rem;
+      }
+
+      .logout-btn {
+        margin-left: 0.5rem;
+        background-color: transparent;
+        border: none;
+        color: var(--light-gray);
+        cursor: pointer;
+        font-size: 1.1rem;
+        transition: color 0.3s;
+      }
+
+      .logout-btn:hover {
+        color: var(--danger);
+      }
+
+      /* Main Content */
+      .main-content {
+        flex: 1;
+        margin-left: 260px;
+        transition: margin-left 0.3s ease;
+      }
+
+      .header {
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        padding: 1rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 70px;
+      }
+
+      .toggle-sidebar {
+        background: none;
+        border: none;
+        color: var(--dark);
+        font-size: 1.25rem;
+        cursor: pointer;
+        display: none;
+      }
+
+      .header-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .header-action {
+        background: none;
+        border: none;
+        color: var(--dark);
+        font-size: 1.1rem;
+        cursor: pointer;
+        position: relative;
+        padding: 0.5rem;
+        border-radius: 50%;
+        transition: background-color 0.3s;
+      }
+
+      .header-action:hover {
+        background-color: var(--light-gray);
+      }
+
+      .notification-badge {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: var(--danger);
+        color: white;
+        font-size: 0.7rem;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Content Area */
+      .content {
+        padding: 1.5rem;
+      }
+
+      /* Dashboard Cards */
+      .dashboard-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+      }
+
+      .dashboard-card {
+        background-color: white;
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .card-info h3 {
+        font-size: 0.875rem;
+        color: var(--gray);
+        margin-bottom: 0.5rem;
+      }
+
+      .card-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+      }
+
+      .card-change {
+        font-size: 0.75rem;
+        display: flex;
+        align-items: center;
+        margin-top: 0.25rem;
+      }
+
+      .change-up {
+        color: var(--success);
+      }
+
+      .change-down {
+        color: var(--danger);
+      }
+
+      .card-change i {
+        margin-right: 0.25rem;
+      }
+
+      .card-icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+      }
+
+      .icon-primary {
+        background-color: rgba(37, 99, 235, 0.1);
+        color: var(--primary);
+      }
+
+      .icon-success {
+        background-color: rgba(16, 185, 129, 0.1);
+        color: var(--success);
+      }
+
+      .icon-warning {
+        background-color: rgba(245, 158, 11, 0.1);
+        color: var(--warning);
+      }
+
+      .icon-danger {
+        background-color: rgba(239, 68, 68, 0.1);
+        color: var(--danger);
+      }
+
+      /* Sections */
+      .section {
+        background-color: white;
+        border-radius: 0.5rem;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        margin-bottom: 1.5rem;
+      }
+
+      .section-header {
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid var(--light-gray);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .section-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+
+      .section-actions {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .section-content {
+        padding: 1.5rem;
+      }
+
+      /* Pending Requests */
+      .request-list {
+        width: 100%;
+      }
+
+      .request-item {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 1rem;
+        align-items: center;
+        padding: 1rem 0;
+        border-bottom: 1px solid var(--light-gray);
+      }
+
+      .request-item:last-child {
+        border-bottom: none;
+      }
+
+      .request-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+      }
+
+      .request-details h4 {
+        font-size: 1rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .request-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        color: var(--gray);
+        font-size: 0.875rem;
+      }
+
+      .meta-item {
+        display: flex;
+        align-items: center;
+      }
+
+      .meta-item i {
+        margin-right: 0.25rem;
+      }
+
+      .request-actions {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .request-actions button {
+        padding: 0.5rem;
+        border-radius: 0.25rem;
+        background-color: transparent;
+        border: 1px solid var(--light-gray);
+        color: var(--dark);
+        cursor: pointer;
+        transition: all 0.3s;
+      }
+
+      .request-actions button:hover {
+        background-color: var(--light-gray);
+      }
+
+      .btn-accept {
+        background-color: var(--success) !important;
+        color: white !important;
+        border-color: var(--success) !important;
+      }
+
+      .btn-accept:hover {
+        background-color: var(--secondary-dark) !important;
+      }
+
+      .btn-decline {
+        background-color: var(--danger) !important;
+        color: white !important;
+        border-color: var(--danger) !important;
+      }
+
+      .btn-decline:hover {
+        background-color: #dc2626 !important;
+      }
+
+      /* Schedule */
+      .schedule-tabs {
+        display: flex;
+        border-bottom: 1px solid var(--light-gray);
+        margin-bottom: 1rem;
+      }
+
+      .schedule-tab {
+        padding: 0.75rem 1rem;
+        cursor: pointer;
+        font-weight: 500;
+        border-bottom: 2px solid transparent;
+        transition: all 0.3s;
+      }
+
+      .schedule-tab.active {
+        color: var(--primary);
+        border-bottom-color: var(--primary);
+      }
+
+      .schedule-day {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1rem;
+      }
+
+      .appointment {
+        background-color: #eff6ff;
+        border-left: 3px solid var(--primary);
+        border-radius: 0.25rem;
+        padding: 1rem;
+      }
+
+      .appointment-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.5rem;
+      }
+
+      .appointment-time {
+        font-weight: 600;
+      }
+
+      .appointment-status {
+        font-size: 0.75rem;
+        padding: 0.25rem 0.5rem;
+        border-radius: 1rem;
+        background-color: rgba(16, 185, 129, 0.1);
+        color: var(--success);
+      }
+
+      .appointment-client {
+        margin-bottom: 0.5rem;
+      }
+
+      .appointment-service {
+        font-size: 0.875rem;
+        color: var(--gray);
+      }
+
+      /* Recent Earnings */
+      .earnings-chart {
+        height: 250px;
+        margin-bottom: 1rem;
+      }
+
+      .earnings-summary {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+      }
+
+      .summary-item {
+        text-align: center;
+      }
+
+      .summary-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 0.25rem;
+      }
+
+      .summary-label {
+        color: var(--gray);
+        font-size: 0.875rem;
+      }
+
+      /* Reviews */
+      .review-list {
+        display: grid;
+        gap: 1.5rem;
+      }
+
+      .review-item {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .review-header {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .reviewer {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .reviewer-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: var(--light-gray);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+        font-weight: bold;
+        color: var(--dark);
+      }
+
+      .reviewer-info h4 {
+        font-size: 1rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .reviewer-meta {
+        display: flex;
+        gap: 1rem;
+        color: var(--gray);
+        font-size: 0.75rem;
+      }
+
+      .review-rating {
+        color: #fbbf24;
+        display: flex;
+        gap: 0.1rem;
+      }
+
+      .review-text {
+        color: var(--dark);
+        line-height: 1.5;
+      }
+
+      /* Responsive */
+      @media (max-width: 992px) {
+        .sidebar {
+          transform: translateX(-100%);
+        }
+
+        .sidebar.active {
+          transform: translateX(0);
+        }
+
+        .main-content {
+          margin-left: 0;
+        }
+
+        .toggle-sidebar {
+          display: block;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .dashboard-cards {
+          grid-template-columns: 1fr;
+        }
+
+        .request-item {
+          grid-template-columns: 1fr;
+        }
+
+        .request-actions {
+          justify-content: flex-start;
+          margin-top: 0.5rem;
+        }
+      }
+
+      /* Modal */
+      .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1100;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s;
+      }
+
+      .modal-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .modal {
+        background-color: white;
+        border-radius: 0.5rem;
+        width: 100%;
+        max-width: 500px;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        transform: translateY(20px);
+        transition: transform 0.3s;
+      }
+
+      .modal-overlay.active .modal {
+        transform: translateY(0);
+      }
+
+      .modal-header {
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid var(--light-gray);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .modal-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+      }
+
+      .modal-close {
+        background: none;
+        border: none;
+        color: var(--gray);
+        font-size: 1.25rem;
+        cursor: pointer;
+        transition: color 0.3s;
+      }
+
+      .modal-close:hover {
+        color: var(--danger);
+      }
+
+      .modal-body {
+        padding: 1.5rem;
+      }
+
+      .modal-footer {
+        padding: 1rem 1.5rem;
+        border-top: 1px solid var(--light-gray);
+        display: flex;
+        justify-content: flex-end;
+        gap: 0.75rem;
+      }
+
+      /* Form */
+      .form-group {
+        margin-bottom: 1.25rem;
+      }
+
+      .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+      }
+
+      .form-input,
+      .form-select,
+      .form-textarea {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid var(--light-gray);
+        border-radius: 0.25rem;
+        font-size: 1rem;
+        transition: border-color 0.3s;
+      }
+
+      .form-input:focus,
+      .form-select:focus,
+      .form-textarea:focus {
+        outline: none;
+        border-color: var(--primary);
+      }
+
+      .form-textarea {
+        min-height: 100px;
+        resize: vertical;
+      }
+
+      /* Buttons */
+      .btn {
+        padding: 0.75rem 1rem;
+        border-radius: 0.25rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s;
+        border: none;
+      }
+
+      .btn-primary {
+        background-color: var(--primary);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background-color: var(--primary-dark);
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        border: 1px solid var(--light-gray);
+        color: var(--dark);
+      }
+
+      .btn-outline:hover {
+        background-color: var(--light-gray);
+      }
+
+      .btn-success {
+        background-color: var(--success);
+        color: white;
+      }
+
+      .btn-success:hover {
+        background-color: var(--secondary-dark);
+      }
+
+      .btn-danger {
+        background-color: var(--danger);
+        color: white;
+      }
+
+      .btn-danger:hover {
+        background-color: #dc2626;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <a href="/index.html" class="sidebar-logo">
+          <i class="fas fa-tools"></i> Fix<span>It</span>Now
+        </a>
+      </div>
+      <div class="sidebar-menu">
+        <span class="menu-title">Main</span>
+        <ul>
+          <li>
+            <a href="#" class="active">
+              <i class="fas fa-tachometer-alt"></i> Dashboard
+            </a>
+          </li>
+          <li>
+            <a href="#"> <i class="fas fa-calendar-alt"></i> Schedule </a>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fas fa-clipboard-list"></i> Service Requests
+            </a>
+          </li>
+          <li>
+            <a href="#"> <i class="fas fa-star"></i> Reviews </a>
+          </li>
+        </ul>
+
+        <span class="menu-title">Management</span>
+        <ul>
+          <li>
+            <a href="#"> <i class="fas fa-cog"></i> Services </a>
+          </li>
+          <li>
+            <a href="#"> <i class="fas fa-dollar-sign"></i> Earnings </a>
+          </li>
+          <li>
+            <a href="#"> <i class="fas fa-history"></i> Transaction History </a>
+          </li>
+        </ul>
+
+        <span class="menu-title">Account</span>
+        <ul>
+          <li>
+            <a href="#"> <i class="fas fa-user"></i> Profile </a>
+          </li>
+          <li>
+            <a href="#"> <i class="fas fa-shield-alt"></i> Security </a>
+          </li>
+          <li>
+            <a href="#"> <i class="fas fa-bell"></i> Notifications </a>
+          </li>
+        </ul>
+      </div>
+      <div class="sidebar-footer">
+        <div class="user-profile">
+          <div class="user-avatar">AM</div>
+          <div class="user-info">
+            <div class="user-name">Ammar Mebrek</div>
+            <div class="user-role">Network Expert</div>
+          </div>
+          <button class="logout-btn">
+            <i class="fas fa-sign-out-alt"></i>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="header">
+        <div class="header-left">
+          <button class="toggle-sidebar" id="toggle-sidebar">
+            <i class="fas fa-bars"></i>
+          </button>
+          <h1 class="header-title">Dashboard</h1>
+        </div>
+        <div class="header-actions">
+          <button class="header-action">
+            <i class="fas fa-bell"></i>
+            <span class="notification-badge">3</span>
+          </button>
+          <button class="header-action">
+            <i class="fas fa-envelope"></i>
+            <span class="notification-badge">5</span>
+          </button>
+          <button class="header-action">
+            <i class="fas fa-cog"></i>
+          </button>
+        </div>
+      </header>
+
+      <div class="content">
+        <!-- Dashboard Cards -->
+        <div class="dashboard-cards">
+          <div class="dashboard-card">
+            <div class="card-info">
+              <h3>Total Earnings</h3>
+              <div class="card-value">DZD 24,500</div>
+              <div class="card-change change-up">
+                <i class="fas fa-arrow-up"></i> 12.5% since last month
+              </div>
+            </div>
+            <div class="card-icon icon-primary">
+              <i class="fas fa-dollar-sign"></i>
+            </div>
+          </div>
+          <div class="dashboard-card">
+            <div class="card-info">
+              <h3>Completed Jobs</h3>
+              <div class="card-value">42</div>
+              <div class="card-change change-up">
+                <i class="fas fa-arrow-up"></i> 8.3% since last month
+              </div>
+            </div>
+            <div class="card-icon icon-success">
+              <i class="fas fa-check-circle"></i>
+            </div>
+          </div>
+          <div class="dashboard-card">
+            <div class="card-info">
+              <h3>Pending Requests</h3>
+              <div class="card-value">7</div>
+              <div class="card-change change-down">
+                <i class="fas fa-arrow-down"></i> 2.1% since last month
+              </div>
+            </div>
+            <div class="card-icon icon-warning">
+              <i class="fas fa-clock"></i>
+            </div>
+          </div>
+          <div class="dashboard-card">
+            <div class="card-info">
+              <h3>Average Rating</h3>
+              <div class="card-value">4.8</div>
+              <div class="card-change change-up">
+                <i class="fas fa-arrow-up"></i> 0.2 since last month
+              </div>
+            </div>
+            <div class="card-icon icon-danger">
+              <i class="fas fa-star"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pending Service Requests -->
+        <div class="section">
+          <div class="section-header">
+            <h2 class="section-title">Pending Service Requests</h2>
+            <div class="section-actions">
+              <button class="btn btn-outline" id="refresh-requests">
+                <i class="fas fa-sync-alt"></i> Refresh
+              </button>
+            </div>
+          </div>
+          <div class="section-content">
+            <div class="request-list">
+              <div class="request-item">
+                <div class="request-icon icon-primary">
+                  <i class="fas fa-laptop"></i>
+                </div>
+                <div class="request-details">
+                  <h4>Laptop Repair - Not Turning On</h4>
+                  <div class="request-meta">
+                    <span class="meta-item">
+                      <i class="fas fa-user"></i> Sarah K.
+                    </span>
+                    <span class="meta-item">
+                      <i class="fas fa-map-marker-alt"></i> Algiers, Algeria
+                    </span>
+                    <span class="meta-item">
+                      <i class="fas fa-calendar"></i> Apr 22, 2025
+                    </span>
+                    <span class="meta-item">
+                      <i class="fas fa-clock"></i> 10:00 AM
+                    </span>
+                  </div>
+                </div>
+                <div class="request-actions">
+                  <button class="btn btn-accept view-details" data-id="req1">
+                    <i class="fas fa-eye"></i> View Details
+                  </button>
+                  <button class="btn btn-accept">
+                    <i class="fas fa-check"></i> Accept
+                  </button>
+                  <button class="btn btn-decline">
+                    <i class="fas fa-times"></i> Decline
+                  </button>
+                </div>
+              </div>
+              <div class="request-item">
+                <div class="request-icon icon-warning">
+                  <i class="fas fa-wifi"></i>
+                </div>
+                <div class="request-details">
+                  <h4>Router Configuration - Network Setup</h4>
+                  <div class="request-meta">
+                    <span class="meta-item">
+                      <i class="fas fa-user"></i> Mohamed B.
+                    </span>
+                    <span class="meta-item">
+                      <i class="fas fa-map-marker-alt"></i> Oran, Algeria
+                    </span>
+                    <span class="meta-item">
+                      <i class="fas fa-calendar"></i> Apr 23, 2025
+                    </span>
+                    <span class="meta-item">
+                      <i class="fas fa-clock"></i> 2:30 PM
+                    </span>
+                  </div>
+                </div>
+                <div class="request-actions">
+                  <button class="btn btn-accept view-details" data-id="req2">
+                    <i class="fas fa-eye"></i> View Details
+                  </button>
+                  <button class="btn btn-accept">
+                    <i class="fas fa-check"></i> Accept
+                  </button>
+                  <button class="btn btn-decline">
+                    <i class="fas fa-times"></i> Decline
+                  </button>
+                </div>
+              </div>
+              <div class="request-item">
+                <div class="request-icon icon-danger">
+                  <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div class="request-details">
+                  <h4>iPhone Screen Replacement</h4>
+                  <div class="request-meta">
+                    <span class="meta-item">
+                      <i class="fas fa-user"></i> Leila M.
+                    </span>
+                    <span class="meta-item">
+                      <i class="fas fa-map-marker-alt"></i> Constantine, Algeria
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

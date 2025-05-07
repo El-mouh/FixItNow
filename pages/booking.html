@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book a Technician - FixItNow</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* CSS Reset and Base Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      :root {
+        --primary: #2563eb;
+        --primary-dark: #1d4ed8;
+        --secondary: #10b981;
+        --dark: #1e293b;
+        --light: #f8fafc;
+        --gray: #64748b;
+        --light-gray: #e2e8f0;
+        --error: #ef4444;
+      }
+
+      body {
+        background-color: var(--light);
+        color: var(--dark);
+        line-height: 1.6;
+      }
+
+      /* Container */
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+
+      /* Header Styles */
+      header {
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary);
+        text-decoration: none;
+      }
+
+      .logo span {
+        color: var(--secondary);
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+      }
+
+      nav ul li {
+        margin-left: 1.5rem;
+      }
+
+      nav ul li a {
+        text-decoration: none;
+        color: var(--dark);
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      nav ul li a:hover {
+        color: var(--primary);
+      }
+
+      .auth-buttons {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .btn {
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        font-weight: 500;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: inline-block;
+      }
+
+      .btn-primary {
+        background-color: var(--primary);
+        color: white;
+        border: none;
+      }
+
+      .btn-primary:hover {
+        background-color: var(--primary-dark);
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        color: var(--primary);
+        border: 1px solid var(--primary);
+      }
+
+      .btn-outline:hover {
+        background-color: var(--primary);
+        color: white;
+      }
+
+      /* Page Header */
+      .page-header {
+        background-color: var(--primary);
+        color: white;
+        padding: 3rem 0;
+        text-align: center;
+      }
+
+      .page-title {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .page-description {
+        max-width: 600px;
+        margin: 0 auto;
+        font-size: 1.1rem;
+      }
+
+      /* Booking Section */
+      .booking-section {
+        padding: 3rem 0;
+      }
+
+      .booking-container {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 2rem;
+      }
+
+      /* Booking Form */
+      .booking-form {
+        background-color: white;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+      }
+
+      .form-title {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        color: var(--dark);
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+      }
+
+      .form-input,
+      .form-select,
+      .form-textarea {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid var(--light-gray);
+        border-radius: 0.25rem;
+        font-size: 1rem;
+        transition: border-color 0.3s;
+      }
+
+      .form-input:focus,
+      .form-select:focus,
+      .form-textarea:focus {
+        outline: none;
+        border-color: var(--primary);
+      }
+
+      .form-textarea {
+        resize: vertical;
+        min-height: 150px;
+      }
+
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+      }
+
+      .form-check {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem;
+      }
+
+      .form-check input {
+        margin-right: 0.5rem;
+      }
+
+      .error-message {
+        color: var(--error);
+        font-size: 0.875rem;
+        margin-top: 0.25rem;
+        display: none;
+      }
+
+      .form-footer {
+        margin-top: 2rem;
+      }
+
+      .submit-btn {
+        width: 100%;
+        padding: 0.75rem;
+        font-size: 1.1rem;
+      }
+
+      /* Booking Summary */
+      .booking-summary {
+        background-color: white;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        position: sticky;
+        top: 7rem;
+      }
+
+      .summary-title {
+        font-size: 1.25rem;
+        margin-bottom: 1.5rem;
+        color: var(--dark);
+      }
+
+      .summary-list {
+        list-style: none;
+        margin-bottom: 1.5rem;
+      }
+
+      .summary-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid var(--light-gray);
+      }
+
+      .summary-item:last-child {
+        border-bottom: none;
+      }
+
+      .summary-item-label {
+        color: var(--gray);
+      }
+
+      .summary-item-value {
+        font-weight: 500;
+      }
+
+      .summary-total {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1.5rem;
+        padding-top: 1.5rem;
+        border-top: 2px solid var(--light-gray);
+        font-size: 1.1rem;
+        font-weight: 700;
+      }
+
+      /* Help Box */
+      .help-box {
+        background-color: #f0f9ff;
+        border: 1px solid #bae6fd;
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        margin-top: 2rem;
+      }
+
+      .help-box-title {
+        display: flex;
+        align-items: center;
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        color: #0369a1;
+      }
+
+      .help-box-title i {
+        margin-right: 0.5rem;
+      }
+
+      .help-box-content {
+        color: #0c4a6e;
+        font-size: 0.95rem;
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--dark);
+        color: white;
+        padding: 4rem 0 2rem;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .footer-column h3 {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+      }
+
+      .footer-links {
+        list-style: none;
+      }
+
+      .footer-links li {
+        margin-bottom: 0.5rem;
+      }
+
+      .footer-links a {
+        color: var(--light-gray);
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-links a:hover {
+        color: white;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .social-links a {
+        color: white;
+        font-size: 1.25rem;
+        transition: color 0.3s;
+      }
+
+      .social-links a:hover {
+        color: var(--secondary);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      /* Mobile Menu */
+      .mobile-menu-toggle {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: var(--dark);
+        cursor: pointer;
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 992px) {
+        .booking-container {
+          grid-template-columns: 1fr;
+        }
+
+        .booking-summary {
+          position: static;
+          order: -1;
+          margin-bottom: 2rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .mobile-menu-toggle {
+          display: block;
+        }
+
+        nav {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background-color: white;
+          box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+          padding: 1rem;
+        }
+
+        nav.active {
+          display: block;
+        }
+
+        nav ul {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        nav ul li {
+          margin-left: 0;
+        }
+
+        .auth-buttons {
+          display: none;
+        }
+
+        .page-title {
+          font-size: 2rem;
+        }
+
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container header-container">
+        <a href="../index.html" class="logo">
+          <i class="fas fa-tools"></i>&nbsp;Fix<span>It</span>Now
+        </a>
+        <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+          <i class="fas fa-bars"></i>
+        </button>
+        <nav id="main-nav">
+          <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="technicians.html">Technicians</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="booking.html">Book Now</a></li>
+          </ul>
+        </nav>
+        <div class="auth-buttons">
+          <a href="login.html" class="btn btn-outline">Login</a>
+          <a href="register.html" class="btn btn-primary">Sign Up</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+      <div class="container">
+        <h1 class="page-title">Book a Technician</h1>
+        <p class="page-description">
+          Quickly schedule a qualified tech expert to solve your technical
+          problems
+        </p>
+      </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section class="booking-section">
+      <div class="container">
+        <div class="booking-container">
+          <!-- Booking Form -->
+          <div class="booking-form">
+            <h2 class="form-title">Service Details</h2>
+            <form id="booking-form">
+              <!-- Service Type -->
+              <div class="form-group">
+                <label for="service-type" class="form-label"
+                  >Service Type*</label
+                >
+                <select id="service-type" class="form-select" required>
+                  <option value="" selected disabled>
+                    Select a service type
+                  </option>
+                  <option value="computer-repair">
+                    Computer & Laptop Repair
+                  </option>
+                  <option value="smartphone-repair">Smartphone Repair</option>
+                  <option value="network-setup">
+                    Network & Internet Setup
+                  </option>
+                  <option value="data-recovery">
+                    Data Recovery & Security
+                  </option>
+                </select>
+                <span class="error-message">Please select a service type</span>
+              </div>
+
+              <!-- Specific Issue -->
+              <div class="form-group">
+                <label for="specific-issue" class="form-label"
+                  >Specific Issue*</label
+                >
+                <select
+                  id="specific-issue"
+                  class="form-select"
+                  required
+                  disabled
+                >
+                  <option value="" selected disabled>
+                    Select a service type first
+                  </option>
+                </select>
+                <span class="error-message"
+                  >Please select your specific issue</span
+                >
+              </div>
+
+              <!-- Issue Description -->
+              <div class="form-group">
+                <label for="issue-description" class="form-label"
+                  >Issue Description*</label
+                >
+                <textarea
+                  id="issue-description"
+                  class="form-textarea"
+                  placeholder="Please describe your technical issue in detail..."
+                  required
+                ></textarea>
+                <span class="error-message"
+                  >Please describe your technical issue</span
+                >
+              </div>
+
+              <!-- Technician Selection -->
+              <div class="form-group">
+                <label for="technician" class="form-label"
+                  >Select Technician (Optional)</label
+                >
+                <select id="technician" class="form-select">
+                  <option value="" selected>
+                    Assign the best available technician
+                  </option>
+                  <option value="mohamed">
+                    Mohamed Benderradji - Computer Hardware Specialist
+                  </option>
+                  <option value="ammar">
+                    Ammar Aissa Mebrek - Network & Security Expert
+                  </option>
+                  <option value="taki">
+                    Taki Eddine Islam Attal - Mobile Device Repair
+                  </option>
+                </select>
+              </div>
+
+              <!-- Appointment Date & Time -->
+              <div class="form-group">
+                <label class="form-label">Preferred Date & Time*</label>
+                <div class="form-row">
+                  <div>
+                    <input
+                      type="date"
+                      id="appointment-date"
+                      class="form-input"
+                      required
+                      min="2025-04-19"
+                    />
+                    <span class="error-message">Please select a date</span>
+                  </div>
+                  <div>
+                    <select id="appointment-time" class="form-select" required>
+                      <option value="" selected disabled>Select time</option>
+                      <option value="09:00">9:00 AM</option>
+                      <option value="10:00">10:00 AM</option>
+                      <option value="11:00">11:00 AM</option>
+                      <option value="12:00">12:00 PM</option>
+                      <option value="13:00">1:00 PM</option>
+                      <option value="14:00">2:00 PM</option>
+                      <option value="15:00">3:00 PM</option>
+                      <option value="16:00">4:00 PM</option>
+                      <option value="17:00">5:00 PM</option>
+                    </select>
+                    <span class="error-message">Please select a time</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Service Location -->
+              <div class="form-group">
+                <label class="form-label">Service Location*</label>
+                <div class="form-check">
+                  <input
+                    type="radio"
+                    id="location-onsite"
+                    name="service-location"
+                    value="onsite"
+                    checked
+                  />
+                  <label for="location-onsite"
+                    >On-Site Service (Technician comes to you)</label
+                  >
+                </div>
+                <div class="form-check">
+                  <input
+                    type="radio"
+                    id="location-remote"
+                    name="service-location"
+                    value="remote"
+                  />
+                  <label for="location-remote"
+                    >Remote Service (Online assistance)</label
+                  >
+                </div>
+              </div>
+
+              <!-- Address (for on-site service) -->
+              <div id="address-fields" class="form-group">
+                <label for="address" class="form-label">Address*</label>
+                <input
+                  type="text"
+                  id="address"
+                  class="form-input"
+                  placeholder="Street address"
+                  required
+                />
+                <span class="error-message">Please enter your address</span>
+
+                <div class="form-row" style="margin-top: 1rem">
+                  <div>
+                    <input
+                      type="text"
+                      id="city"
+                      class="form-input"
+                      placeholder="City"
+                      required
+                    />
+                    <span class="error-message">Please enter your city</span>
+                  </div>
+                  <div>
+                    <input
+                      type="text"
+                      id="postal-code"
+                      class="form-input"
+                      placeholder="Postal code"
+                      required
+                    />
+                    <span class="error-message"
+                      >Please enter your postal code</span
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <!-- Contact Information -->
+              <h2 class="form-title" style="margin-top: 3rem">
+                Contact Information
+              </h2>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="first-name" class="form-label">First Name*</label>
+                  <input
+                    type="text"
+                    id="first-name"
+                    class="form-input"
+                    required
+                  />
+                  <span class="error-message"
+                    >Please enter your first name</span
+                  >
+                </div>
+                <div class="form-group">
+                  <label for="last-name" class="form-label">Last Name*</label>
+                  <input
+                    type="text"
+                    id="last-name"
+                    class="form-input"
+                    required
+                  />
+                  <span class="error-message">Please enter your last name</span>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="email" class="form-label">Email Address*</label>
+                  <input type="email" id="email" class="form-input" required />
+                  <span class="error-message"
+                    >Please enter a valid email address</span
+                  >
+                </div>
+                <div class="form-group">
+                  <label for="phone" class="form-label">Phone Number*</label>
+                  <input type="tel" id="phone" class="form-input" required />
+                  <span class="error-message"
+                    >Please enter your phone number</span
+                  >
+                </div>
+              </div>
+
+              <!-- Special Instructions -->
+              <div class="form-group">
+                <label for="special-instructions" class="form-label"
+                  >Special Instructions (Optional)</label
+                >
+                <textarea
+                  id="special-instructions"
+                  class="form-textarea"
+                  placeholder="Any additional information the technician should know..."
+                ></textarea>
+              </div>
+
+              <!-- Terms and Conditions -->
+              <div class="form-group">
+                <div class="form-check">
+                  <input type="checkbox" id="terms" required />
+                  <label for="terms"
+                    >I agree to the
+                    <a href="#" style="color: var(--primary)"
+                      >Terms and Conditions</a
+                    >*</label
+                  >
+                </div>
+                <span class="error-message"
+                  >You must agree to the terms and conditions</span
+                >
+              </div>
+
+              <!-- Submit Button -->
+              <div class="form-footer">
+                <button type="submit" class="btn btn-primary submit-btn">
+                  Book Appointment
+                </button>
+              </div>
+            </form>
+
+            <!-- Help Box -->
+            <div class="help-box">
+              <div class="help-box-title">
+                <i class="fas fa-info-circle"></i> Need Help?
+              </div>
+              <div class="help-box-content">
+                <p>
+                  If you're unsure about any details or have questions about our
+                  services, feel free to contact our customer support at
+                  <strong>support@fixitnow.com</strong> or call us at
+                  <strong>+213 555 123 456</strong>.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Booking Summary -->
+          <div class="booking-summary">
+            <h3 class="summary-title">Booking Summary</h3>
+            <ul class="summary-list">
+              <li class="summary-item">
+                <span class="summary-item-label">Service Type:</span>
+                <span class="summary-item-value" id="summary-service">--</span>
+              </li>
+              <li class="summary-item">
+                <span class="summary-item-label">Specific Issue:</span>
+                <span class="summary-item-value" id="summary-issue">--</span>
+              </li>
+              <li class="summary-item">
+                <span class="summary-item-label">Technician:</span>
+                <span class="summary-item-value" id="summary-technician"
+                  >Best Available</span
+                >
+              </li>
+              <li class="summary-item">
+                <span class="summary-item-label">Date & Time:</span>
+                <span class="summary-item-value" id="summary-datetime">--</span>
+              </li>
+              <li class="summary-item">
+                <span class="summary-item-label">Service Location:</span>
+                <span class="summary-item-value" id="summary-location"
+                  >On-Site</span
+                >
+              </li>
+            </ul>
+
+            <div class="summary-total">
+              <span>Estimated Price:</span>
+              <span id="summary-price">--</span>
+            </div>
+
+            <p
+              style="margin-top: 1rem; font-size: 0.875rem; color: var(--gray)"
+            >
+              * Final price may vary based on the complexity of the issue.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-column">
+            <h3>FixItNow</h3>
+            <p>
+              The trusted platform for connecting with skilled IT technicians
+              for all your tech repair needs.
+            </p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+          </div>
+          <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="../index.html">Home</a></li>
+              <li><a href="services.html">Services</a></li>
+              <li><a href="technicians.html">Technicians</a></li>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="booking.html">Book Now</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Services</h3>
+            <ul class="footer-links">
+              <li><a href="services.html">Computer Repair</a></li>
+              <li><a href="services.html">Smartphone Repair</a></li>
+              <li><a href="services.html">Network Setup</a></li>
+              <li><a href="services.html">Data Recovery</a></li>
+              <li><a href="services.html">Cybersecurity</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Contact Us</h3>
+            <ul class="footer-links">
+              <li><i class="fas fa-envelope"></i> info@fixitnow.com</li>
+              <li><i class="fas fa-phone"></i> +213 555 123 456</li>
+              <li><i class="fas fa-map-marker-alt"></i> Algiers, Algeria</li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 FixItNow. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+  <script>
+    // Update Technician
+    if (technicianSelect.value) {
+                const technicianText = technicianSelect.options[technicianSelect.selectedIndex].text;
+                summaryTechnician.textContent = technicianText;
+            } else {
+                summaryTechnician.textContent = 'Best Available';
+            }
+
+            // Update Date & Time
+            if (appointmentDate.value && appointmentTime.value) {
+                const dateObj = new Date(appointmentDate.value);
+                const formattedDate = dateObj.toLocaleDateString('en-US', { 
+                    weekday: 'short', 
+                    year: 'numeric', 
+                    month: 'short', 
+                    day: 'numeric' 
+                });
+                
+                // Convert 24h time to 12h format
+                const timeValue = appointmentTime.value;
+                const timeParts = timeValue.split(':');
+                let hours = parseInt(timeParts[0]);
+                const ampm = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12;
+                hours = hours ? hours : 12; // Convert 0 to 12
+                const formattedTime = `${hours}:00 ${ampm}`;
+                
+                summaryDateTime.textContent = `${formattedDate}, ${formattedTime}`;
+            } else {
+                summaryDateTime.textContent = '--';
+            }
+
+            // Update Location
+            const selectedLocation = document.querySelector('input[name="service-location"]:checked').value;
+            summaryLocation.textContent = selectedLocation === 'onsite' ? 'On-Site' : 'Remote';
+
+            // Update Price
+            if (serviceTypeSelect.value) {
+                let basePrice = servicePrices[serviceTypeSelect.value];
+                
+                // Add extra for on-site service
+                if (selectedLocation === 'onsite') {
+                    basePrice += 15;
+                }
+                
+                summaryPrice.textContent = `$${basePrice}`;
+            } else {
+                summaryPrice.textContent = '--';
+            }
+        
+
+        // Form Validation and Submission
+        bookingForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Reset error messages
+            const errorMessages = document.querySelectorAll('.error-message');
+            errorMessages.forEach(msg => {
+                msg.style.display = 'none';
+            });
+            
+            // Check required fields
+            let isValid = true;
+            
+            // Service Type validation
+            if (!serviceTypeSelect.value) {
+                serviceTypeSelect.nextElementSibling.style.display = 'block';
+                isValid = false;
+            }
+            
+            // Specific Issue validation
+            if (!specificIssueSelect.value) {
+                specificIssueSelect.nextElementSibling.style.display = 'block';
+                isValid = false;
+            }
+            
+            // Issue Description validation
+            const issueDescription = document.getElementById('issue-description');
+            if (!issueDescription.value.trim()) {
+                issueDescription.nextElementSibling.style.display = 'block';
+                isValid = false;
+            }
+            
+            // Date validation
+            if (!appointmentDate.value) {
+                appointmentDate.nextElementSibling.style.display = 'block';
+                isValid = false;
+            }
+            
+            // Time validation
+            if (!appointmentTime.value) {
+                appointmentTime.nextElementSibling.style.display = 'block';
+                isValid = false;
+            }
+            
+            // Address validation (only if on-site is selected)
+            const locationOnsite = document.getElementById('location-onsite');
+            if (locationOnsite.checked) {
+                const address = document.getElementById('address');
+                const city = document.getElementById('city');
+                const postalCode = document.getElementById('postal-code');
+                
+                if (!address.value.trim()) {
+                    address.nextElementSibling.style.display = 'block';
+                    isValid = false;
+                }
+                
+                if (!city.value.trim()) {
+                    city.nextElementSibling.style.display = 'block';
+                    isValid = false;
+                }
+                
+                if (!postalCode.value.trim()) {
+                    postalCode.nextElementSibling.style.display = 'block';
+                    isValid = false;
+                }
+            }
+            
+            // Contact information validation
+            const firstName = document.getElementById('first-name');
+            const lastName = document.getElementById('last-name');
+            const email = document.getElementById('email');
+            const phone = document.getElementById('phone');
+            const terms = document.getElementById('terms');
+            
+            if (!firstName.value.trim()) {
+                firstName.nextElementSibling.style.display = 'block';
+                isValid = false;
+            }
+            
+            if (!lastName.value.trim()) {
+                lastName.nextElementSibling.style.display = 'block';
+                isValid = false;
+            }
+            
+            if (!email.value.trim() || !validateEmail(email.value)) {
+                email.nextElementSibling.style.display = 'block';
+                isValid = false;
+            }
+            
+            if (!phone.value.trim()) {
+                phone.nextElementSibling.style.display = 'block';
+                isValid = false;
+            }
+            
+            if (!terms.checked) {
+                terms.nextElementSibling.style.display = 'block';
+                isValid = false;
+            }
+            
+            // If form is valid, submit
+            if (isValid) {
+                // Here you would normally send the data to a server
+                // For demo purposes, we'll just show an alert
+                alert('Booking submitted successfully! We will confirm your appointment shortly.');
+                
+                // Reset the form
+                bookingForm.reset();
+                
+                // Reset summary
+                summaryService.textContent = '--';
+                summaryIssue.textContent = '--';
+                summaryTechnician.textContent = 'Best Available';
+                summaryDateTime.textContent = '--';
+                summaryLocation.textContent = 'On-Site';
+                summaryPrice.textContent = '--';
+                
+                // Reset the specific issue select
+                specificIssueSelect.innerHTML = '';
+                specificIssueSelect.disabled = true;
+                const defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.disabled = true;
+                defaultOption.selected = true;
+                defaultOption.textContent = 'Select a service type first';
+                specificIssueSelect.appendChild(defaultOption);
+            }
+        });
+        
+        // Email validation helper function
+        function validateEmail(email) {
+            const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        }
+        
+        // Initialize the page
+        updateSummary();
+    </script>
+</body>
+</html>

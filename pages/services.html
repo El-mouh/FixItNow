@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Our Services - FixItNow</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      /* CSS Reset and Base Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      :root {
+        --primary: #2563eb;
+        --primary-dark: #1d4ed8;
+        --secondary: #10b981;
+        --dark: #1e293b;
+        --light: #f8fafc;
+        --gray: #64748b;
+        --light-gray: #e2e8f0;
+      }
+
+      body {
+        background-color: var(--light);
+        color: var(--dark);
+        line-height: 1.6;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* Container */
+      .container {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem;
+      }
+
+      /* Header Styles */
+      header {
+        background-color: white;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .header-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--primary);
+        text-decoration: none;
+      }
+
+      .logo span {
+        color: var(--secondary);
+      }
+
+      nav ul {
+        display: flex;
+        list-style: none;
+      }
+
+      nav ul li {
+        margin-left: 1.5rem;
+      }
+
+      nav ul li a {
+        text-decoration: none;
+        color: var(--dark);
+        font-weight: 500;
+        transition: color 0.3s;
+      }
+
+      nav ul li a:hover,
+      nav ul li a.active {
+        color: var(--primary);
+      }
+
+      .auth-buttons {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .btn {
+        padding: 0.5rem 1rem;
+        border-radius: 0.25rem;
+        font-weight: 500;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.3s;
+        display: inline-block;
+      }
+
+      .btn-primary {
+        background-color: var(--primary);
+        color: white;
+        border: none;
+      }
+
+      .btn-primary:hover {
+        background-color: var(--primary-dark);
+      }
+
+      .btn-outline {
+        background-color: transparent;
+        color: var(--primary);
+        border: 1px solid var(--primary);
+      }
+
+      .btn-outline:hover {
+        background-color: var(--primary);
+        color: white;
+      }
+
+      /* Hero Section */
+      .page-hero {
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+          url("/api/placeholder/1200/400") center/cover;
+        color: white;
+        padding: 4rem 0;
+        text-align: center;
+      }
+
+      .page-hero h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .page-hero p {
+        font-size: 1.1rem;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      /* Main Content */
+      main {
+        flex: 1;
+        padding: 3rem 0;
+      }
+
+      .section-title {
+        font-size: 2rem;
+        color: var(--dark);
+        margin-bottom: 1.5rem;
+        text-align: center;
+      }
+
+      .service-categories {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+      }
+
+      .category-tab {
+        padding: 0.75rem 1.5rem;
+        background-color: white;
+        border-radius: 0.25rem;
+        font-weight: 500;
+        cursor: pointer;
+        border: 1px solid var(--light-gray);
+        transition: all 0.3s;
+      }
+
+      .category-tab.active {
+        background-color: var(--primary);
+        color: white;
+        border-color: var(--primary);
+      }
+
+      .category-tab:hover:not(.active) {
+        border-color: var(--primary);
+        color: var(--primary);
+      }
+
+      .services-content {
+        margin-top: 2rem;
+      }
+
+      .service-category {
+        display: none;
+      }
+
+      .service-category.active {
+        display: block;
+      }
+
+      .service-list {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 2rem;
+      }
+
+      .service-item {
+        background-color: white;
+        border-radius: 0.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: transform 0.3s, box-shadow 0.3s;
+      }
+
+      .service-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .service-img {
+        height: 200px;
+        width: 100%;
+        object-fit: cover;
+      }
+
+      .service-content {
+        padding: 1.5rem;
+      }
+
+      .service-content h3 {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+        color: var(--dark);
+      }
+
+      .service-content p {
+        color: var(--gray);
+        margin-bottom: 1rem;
+      }
+
+      .service-price {
+        font-weight: 700;
+        color: var(--primary);
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+      }
+
+      .service-features {
+        list-style: none;
+        margin-bottom: 1.5rem;
+      }
+
+      .service-features li {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 0.5rem;
+      }
+
+      .service-features li i {
+        color: var(--secondary);
+        margin-right: 0.5rem;
+        margin-top: 0.2rem;
+      }
+
+      /* FAQ Section */
+      .faq-section {
+        margin-top: 4rem;
+        background-color: var(--light-gray);
+        padding: 3rem 0;
+      }
+
+      .accordion {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .accordion-item {
+        background-color: white;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+      }
+
+      .accordion-header {
+        padding: 1.25rem;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-weight: 600;
+      }
+
+      .accordion-header:hover {
+        background-color: rgba(0, 0, 0, 0.02);
+      }
+
+      .accordion-content {
+        padding: 0 1.25rem;
+        max-height: 0;
+        overflow: hidden;
+        transition: all 0.3s ease;
+      }
+
+      .accordion-content.active {
+        padding: 0 1.25rem 1.25rem;
+        max-height: 1000px;
+      }
+
+      /* CTA Section */
+      .cta-section {
+        background-color: var(--primary);
+        color: white;
+        padding: 4rem 0;
+        text-align: center;
+      }
+
+      .cta-title {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      .cta-text {
+        max-width: 700px;
+        margin: 0 auto 2rem;
+        font-size: 1.1rem;
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--dark);
+        color: white;
+        padding: 4rem 0 2rem;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .footer-column h3 {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+      }
+
+      .footer-links {
+        list-style: none;
+      }
+
+      .footer-links li {
+        margin-bottom: 0.5rem;
+      }
+
+      .footer-links a {
+        color: var(--light-gray);
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-links a:hover {
+        color: white;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 1rem;
+      }
+
+      .social-links a {
+        color: white;
+        font-size: 1.25rem;
+        transition: color 0.3s;
+      }
+
+      .social-links a:hover {
+        color: var(--secondary);
+      }
+
+      .footer-bottom {
+        text-align: center;
+        padding-top: 2rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      /* Mobile Menu */
+      .mobile-menu-toggle {
+        display: none;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: var(--dark);
+        cursor: pointer;
+      }
+
+      /* Responsive Styles */
+      @media (max-width: 768px) {
+        .mobile-menu-toggle {
+          display: block;
+        }
+
+        nav {
+          display: none;
+          position: absolute;
+          top: 100%;
+          left: 0;
+          right: 0;
+          background-color: white;
+          box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+          padding: 1rem;
+          z-index: 100;
+        }
+
+        nav.active {
+          display: block;
+        }
+
+        nav ul {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        nav ul li {
+          margin-left: 0;
+        }
+
+        .auth-buttons {
+          display: none;
+        }
+
+        .service-categories {
+          flex-direction: column;
+        }
+
+        .service-list {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container header-container">
+        <a href="../index.html" class="logo">
+          <i class="fas fa-tools"></i>&nbsp;Fix<span>It</span>Now
+        </a>
+        <button class="mobile-menu-toggle" id="mobile-menu-toggle">
+          <i class="fas fa-bars"></i>
+        </button>
+        <nav id="main-nav">
+          <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="services.html" class="active">Services</a></li>
+            <li><a href="technicians.html">Technicians</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="booking.html">Book Now</a></li>
+          </ul>
+        </nav>
+        <div class="auth-buttons">
+          <a href="login.html" class="btn btn-outline">Login</a>
+          <a href="register.html" class="btn btn-primary">Sign Up</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+      <div class="container">
+        <h1>Our Services</h1>
+        <p>
+          Explore our comprehensive range of tech repair and IT support services
+          designed to solve all your technology problems quickly and
+          efficiently.
+        </p>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+      <div class="container">
+        <h2 class="section-title">What We Offer</h2>
+
+        <!-- Service Categories Tabs -->
+        <div class="service-categories">
+          <div class="category-tab active" data-category="computer">
+            Computer & Laptop Repair
+          </div>
+          <div class="category-tab" data-category="smartphone">
+            Smartphone Repair
+          </div>
+          <div class="category-tab" data-category="network">
+            Network & Internet Setup
+          </div>
+          <div class="category-tab" data-category="data">
+            Data Recovery & Security
+          </div>
+        </div>
+
+        <!-- Services Content -->
+        <div class="services-content">
+          <!-- Computer & Laptop Repair -->
+          <div class="service-category active" id="computer">
+            <div class="service-list">
+              <div class="service-item">
+                <img
+                  src="/api/placeholder/400/200"
+                  alt="Hardware Repair"
+                  class="service-img"
+                />
+                <div class="service-content">
+                  <h3>Hardware Repair & Diagnostics</h3>
+                  <p>
+                    Get your computer hardware issues diagnosed and fixed by our
+                    expert technicians.
+                  </p>
+                  <div class="service-price">Starting at $50</div>
+                  <ul class="service-features">
+                    <li>
+                      <i class="fas fa-check-circle"></i> Component-level
+                      diagnostics
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> Parts replacement
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> System performance
+                      optimization
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> 90-day repair warranty
+                    </li>
+                  </ul>
+                  <a href="booking.html" class="btn btn-primary"
+                    >Book Service</a
+                  >
+                </div>
+              </div>
+              <div class="service-item">
+                <img
+                  src="/api/placeholder/400/200"
+                  alt="Virus Removal"
+                  class="service-img"
+                />
+                <div class="service-content">
+                  <h3>Virus Removal & Malware Cleanup</h3>
+                  <p>
+                    Remove viruses, malware, and other threats from your
+                    computer to ensure optimal performance.
+                  </p>
+                  <div class="service-price">Starting at $35</div>
+                  <ul class="service-features">
+                    <li>
+                      <i class="fas fa-check-circle"></i> Complete virus scan
+                      and removal
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> Spyware and adware
+                      cleanup
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> Security software
+                      installation
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> Performance
+                      optimization
+                    </li>
+                  </ul>
+                  <a href="booking.html" class="btn btn-primary"
+                    >Book Service</a
+                  >
+                </div>
+              </div>
+              <div class="service-item">
+                <img
+                  src="/api/placeholder/400/200"
+                  alt="OS Installation"
+                  class="service-img"
+                />
+                <div class="service-content">
+                  <h3>Operating System Installation</h3>
+                  <p>
+                    Fresh installation or upgrade of operating systems with all
+                    necessary drivers and updates.
+                  </p>
+                  <div class="service-price">Starting at $60</div>
+                  <ul class="service-features">
+                    <li>
+                      <i class="fas fa-check-circle"></i> OS installation
+                      (Windows/Linux/MacOS)
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> Driver installation
+                      and updates
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> Software
+                      reinstallation
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> Data migration
+                      assistance
+                    </li>
+                  </ul>
+                  <a href="booking.html" class="btn btn-primary"
+                    >Book Service</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Smartphone Repair -->
+          <div class="service-category" id="smartphone">
+            <div class="service-list">
+              <div class="service-item">
+                <img
+                  src="/api/placeholder/400/200"
+                  alt="Screen Replacement"
+                  class="service-img"
+                />
+                <div class="service-content">
+                  <h3>Screen Replacement</h3>
+                  <p>
+                    Replace cracked or damaged screens on smartphones and
+                    tablets with high-quality parts.
+                  </p>
+                  <div class="service-price">Starting at $45</div>
+                  <ul class="service-features">
+                    <li>
+                      <i class="fas fa-check-circle"></i> OEM-grade replacement
+                      screens
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> Same-day service (when
+                      possible)
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> 6-month warranty on
+                      parts
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> All major brands
+                      supported
+                    </li>
+                  </ul>
+                  <a href="booking.html" class="btn btn-primary"
+                    >Book Service</a
+                  >
+                </div>
+              </div>
+              <div class="service-item">
+                <img
+                  src="/api/placeholder/400/200"
+                  alt="Battery Replacement"
+                  class="service-img"
+                />
+                <div class="service-content">
+                  <h3>Battery Replacement</h3>
+                  <p>
+                    Restore your device's battery life with a high-quality
+                    replacement battery.
+                  </p>
+                  <div class="service-price">Starting at $30</div>
+                  <ul class="service-features">
+                    <li>
+                      <i class="fas fa-check-circle"></i> Genuine or
+                      high-quality compatible batteries
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> Fast service
+                      turnaround
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> Battery health testing
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> 12-month warranty
+                    </li>
+                  </ul>
+                  <a href="booking.html" class="btn btn-primary"
+                    >Book Service</a
+                  >
+                </div>
+              </div>
+              <div class="service-item">
+                <img
+                  src="/api/placeholder/400/200"
+                  alt="Software Issues"
+                  class="service-img"
+                />
+                <div class="service-content">
+                  <h3>Software Issues & Updates</h3>
+                  <p>
+                    Fix software glitches, update operating systems, and resolve
+                    app-related problems.
+                  </p>
+                  <div class="service-price">Starting at $25</div>
+                  <ul class="service-features">
+                    <li>
+                      <i class="fas fa-check-circle"></i> Software
+                      troubleshooting
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> OS updates and
+                      upgrades
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> App configuration and
+                      fixes
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> Performance
+                      optimization
+                    </li>
+                  </ul>
+                  <a href="booking.html" class="btn btn-primary"
+                    >Book Service</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Network & Internet Setup -->
+          <div class="service-category" id="network">
+            <div class="service-list">
+              <div class="service-item">
+                <img
+                  src="/api/placeholder/400/200"
+                  alt="WiFi Setup"
+                  class="service-img"
+                />
+                <div class="service-content">
+                  <h3>Wi-Fi Setup & Troubleshooting</h3>
+                  <p>
+                    Install, configure, or fix Wi-Fi networks for optimal
+                    performance and coverage.
+                  </p>
+                  <div class="service-price">Starting at $40</div>
+                  <ul class="service-features">
+                    <li>
+                      <i class="fas fa-check-circle"></i> Router installation
+                      and configuration
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> Signal strength
+                      optimization
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> Network security setup
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> Troubleshooting
+                      connectivity issues
+                    </li>
+                  </ul>
+                  <a href="booking.html" class="btn btn-primary"
+                    >Book Service</a
+                  >
+                </div>
+              </div>
+              <div class="service-item">
+                <img
+                  src="/api/placeholder/400/200"
+                  alt="Office Network"
+                  class="service-img"
+                />
+                <div class="service-content">
+                  <h3>Office Network Installation</h3>
+                  <p>
+                    Professional setup and configuration of business networks
+                    for optimal performance.
+                  </p>
+                  <div class="service-price">Starting at $100</div>
+                  <ul class="service-features">
+                    <li>
+                      <i class="fas fa-check-circle"></i> Network planning and
+                      design
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> Hardware installation
+                      and configuration
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> Security
+                      implementation
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> User account setup and
+                      management
+                    </li>
+                  </ul>
+                  <a href="booking.html" class="btn btn-primary"
+                    >Book Service</a
+                  >
+                </div>
+              </div>
+              <div class="service-item">
+                <img
+                  src="/api/placeholder/400/200"
+                  alt="Smart Home"
+                  class="service-img"
+                />
+                <div class="service-content">
+                  <h3>Smart Home Network Setup</h3>
+                  <p>
+                    Configure and optimize your home network for smart devices
+                    and entertainment systems.
+                  </p>
+                  <div class="service-price">Starting at $70</div>
+                  <ul class="service-features">
+                    <li>
+                      <i class="fas fa-check-circle"></i> IoT device integration
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> Media streaming
+                      optimization
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> Voice assistant setup
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> Network security
+                      configuration
+                    </li>
+                  </ul>
+                  <a href="booking.html" class="btn btn-primary"
+                    >Book Service</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Data Recovery & Security -->
+          <div class="service-category" id="data">
+            <div class="service-list">
+              <div class="service-item">
+                <img
+                  src="/api/placeholder/400/200"
+                  alt="Data Recovery"
+                  class="service-img"
+                />
+                <div class="service-content">
+                  <h3>Data Recovery Services</h3>
+                  <p>
+                    Recover lost or deleted files from hard drives, SSDs, memory
+                    cards, and other storage devices.
+                  </p>
+                  <div class="service-price">Starting at $75</div>
+                  <ul class="service-features">
+                    <li>
+                      <i class="fas fa-check-circle"></i> Diagnostics and
+                      recovery assessment
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> Professional recovery
+                      tools and techniques
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> Multiple storage
+                      device support
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> Secure data handling
+                      procedures
+                    </li>
+                  </ul>
+                  <a href="booking.html" class="btn btn-primary"
+                    >Book Service</a
+                  >
+                </div>
+              </div>
+              <div class="service-item">
+                <img
+                  src="/api/placeholder/400/200"
+                  alt="Backup Solutions"
+                  class="service-img"
+                />
+                <div class="service-content">
+                  <h3>Backup Solutions</h3>
+                  <p>
+                    Set up reliable backup systems to protect your valuable data
+                    from loss or corruption.
+                  </p>
+                  <div class="service-price">Starting at $55</div>
+                  <ul class="service-features">
+                    <li>
+                      <i class="fas fa-check-circle"></i> Local and cloud backup
+                      configuration
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> Scheduled backup setup
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> Data migration
+                      assistance
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> Disaster recovery
+                      planning
+                    </li>
+                  </ul>
+                  <a href="booking.html" class="btn btn-primary"
+                    >Book Service</a
+                  >
+                </div>
+              </div>
+              <div class="service-item">
+                <img
+                  src="/api/placeholder/400/200"
+                  alt="Cybersecurity"
+                  class="service-img"
+                />
+                <div class="service-content">
+                  <h3>Cybersecurity Consultation</h3>
+                  <p>
+                    Enhance your digital security with professional advice and
+                    implementation of security measures.
+                  </p>
+                  <div class="service-price">Starting at $90</div>
+                  <ul class="service-features">
+                    <li>
+                      <i class="fas fa-check-circle"></i> Security assessment
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> Antivirus and firewall
+                      setup
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> Password management
+                      solutions
+                    </li>
+                    <li>
+                      <i class="fas fa-check-circle"></i> Security best
+                      practices training
+                    </li>
+                  </ul>
+                  <a href="booking.html" class="btn btn-primary"
+                    >Book Service</a
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+      <div class="container">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <div class="accordion">
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <span>What is the typical turnaround time for repairs?</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="accordion-content">
+              <p>
+                Most computer and smartphone repairs can be completed within
+                24-48 hours. More complex issues or data recovery services may
+                take longer. Our technicians will provide you with an estimated
+                completion time when you book your service.
+              </p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <span
+                >Do you offer on-site services or do I need to bring my device
+                to you?</span
+              >
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="accordion-content">
+              <p>
+                We offer both options! For most services, our technicians can
+                come to your home or office to perform the repair.
+                Alternatively, you can drop off your device at one of our
+                partner locations. You can choose your preferred option during
+                the booking process.
+              </p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <span>What warranty do you provide on repairs?</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="accordion-content">
+              <p>
+                We offer varying warranty periods depending on the service.
+                Hardware repairs typically come with a 90-day warranty, while
+                battery replacements have a 12-month warranty. Software services
+                include 30 days of follow-up support. Specific warranty
+                information is provided for each service.
+              </p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <span>How do I pay for services?</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="accordion-content">
+              <p>
+                FixItNow offers secure online payment through our platform. You
+                can pay using credit/debit cards or other supported payment
+                methods. For some services, a diagnostic fee may be charged
+                upfront, with the remaining balance due after the repair is
+                completed.
+              </p>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <div class="accordion-header">
+              <span>What brands and devices do you support?</span>
+              <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="accordion-content">
+              <p>
+                Our technicians are experienced with most major brands and
+                devices. For computers, we service all Windows PCs, Macs, and
+                Linux systems. For smartphones, we support iPhone, Samsung,
+                Google Pixel, Huawei, Xiaomi, and many other brands. If you have
+                a specific device, you can check availability during the booking
+                process.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+      <div class="container">
+        <h2 class="cta-title">Ready to Get Your Tech Fixed?</h2>
+        <p class="cta-text">
+          Don't let technical issues slow you down. Book a service with one of
+          our qualified technicians today and get back to what matters most.
+        </p>
+        <a href="booking.html" class="btn btn-light">Book a Service Now</a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-column">
+            <h3>FixItNow</h3>
+            <p>
+              The trusted platform for connecting with skilled IT technicians
+              for all your tech repair needs.
+            </p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook"></i></a>
+              <a href="#"><i class="fab fa-twitter"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-linkedin"></i></a>
+            </div>
+          </div>
+          <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul class="footer-links">
+              <li><a href="../index.html">Home</a></li>
+              <li><a href="services.html">Services</a></li>
+              <li><a href="technicians.html">Technicians</a></li>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="booking.html">Book Now</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Services</h3>
+            <ul class="footer-links">
+              <li><a href="services.html">Computer Repair</a></li>
+              <li><a href="services.html">Smartphone Repair</a></li>
+              <li><a href="services.html">Network Setup</a></li>
+              <li><a href="services.html">Data Recovery</a></li>
+              <li><a href="services.html">Cybersecurity</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h3>Contact Us</h3>
+            <ul class="footer-links">
+              <li><i class="fas fa-envelope"></i> info@fixitnow.com</li>
+              <li><i class="fas fa-phone"></i> +213 555 123 456</li>
+              <li><i class="fas fa-map-marker-alt"></i> Algiers, Algeria</li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <p>&copy; 2025 FixItNow. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+    <script>
+      // JavaScript for the Services Page
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // Service category filter functionality
+        const categoryButtons = document.querySelectorAll(".category-tab");
+        const serviceCategories =
+          document.querySelectorAll(".service-category");
+
+        // Add click event to category buttons
+        categoryButtons.forEach(function (btn) {
+          btn.addEventListener("click", function () {
+            // Remove active class from all buttons
+            categoryButtons.forEach((b) => b.classList.remove("active"));
+
+            // Add active class to clicked button
+            this.classList.add("active");
+
+            // Get category from data attribute
+            const category = this.getAttribute("data-category");
+
+            // Hide all service categories
+            serviceCategories.forEach(function (cat) {
+              cat.classList.remove("active");
+            });
+
+            // Show the selected category
+            document.getElementById(category).classList.add("active");
+          });
+        });
+
+        // Service FAQ accordion functionality
+        const accordionHeaders = document.querySelectorAll(".accordion-header");
+
+        accordionHeaders.forEach(function (header) {
+          header.addEventListener("click", function () {
+            // Get the content panel
+            const content = this.nextElementSibling;
+
+            // Toggle active class on content
+            content.classList.toggle("active");
+
+            // Rotate the chevron icon
+            const icon = this.querySelector("i");
+            icon.classList.toggle("fa-chevron-up");
+            icon.classList.toggle("fa-chevron-down");
+
+            // Close other accordion items
+            accordionHeaders.forEach(function (otherHeader) {
+              if (otherHeader !== header) {
+                // Close content panel
+                otherHeader.nextElementSibling.classList.remove("active");
+
+                // Reset icon
+                const otherIcon = otherHeader.querySelector("i");
+                otherIcon.classList.remove("fa-chevron-up");
+                otherIcon.classList.add("fa-chevron-down");
+              }
+            });
+          });
+        });
+
+        // Mobile menu toggle
+        const mobileMenuToggle = document.getElementById("mobile-menu-toggle");
+        const mainNav = document.getElementById("main-nav");
+
+        if (mobileMenuToggle && mainNav) {
+          mobileMenuToggle.addEventListener("click", function () {
+            mainNav.classList.toggle("active");
+            // Change icon
+            const icon = this.querySelector("i");
+            if (icon) {
+              icon.classList.toggle("fa-bars");
+              icon.classList.toggle("fa-times");
+            }
+          });
+        }
+      });
+    </script>
+  </body>
+</html>
